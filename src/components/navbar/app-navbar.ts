@@ -13,7 +13,8 @@ import logoUrl from '../../assets/logo2.svg?url';
 export class AppNavbar extends LitElement {
   private i18nController = new I18nController(this);
   
-  @state() private mobileMenuOpen = false;
+  @state() 
+  private mobileMenuOpen = false;
 
   static styles = css`
     :host { display:block; }

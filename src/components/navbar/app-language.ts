@@ -100,8 +100,11 @@ export class AppLanguage extends LitElement {
     }
   `;
 
-  @state() private language = i18n.lang;
-  @state() private isOpen = false;
+  @state() 
+  private language = i18n.lang;
+  
+  @state() 
+  private isOpen = false;
 
   private languages = {
     tr: { flag: html`<icon-flag-tr></icon-flag-tr>`, name: 'Türkçe' },
