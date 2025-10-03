@@ -6,9 +6,13 @@ export const formStyles = css`
 
 .container {
   width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding-inline: var(--space-5, 20px);
-  box-sizing: border-box;          
+  padding: var(--space-5, 20px);
+  box-sizing: border-box;
+  min-height: calc(100vh - 60px); /* Account for navbar height */
+  display: flex;
+  flex-direction: column;
 }
 
   .header {
@@ -47,6 +51,66 @@ export const formStyles = css`
     border-radius: var(--radius, 12px);
     padding: var(--space-8, 32px);
     box-shadow: var(--shadow, 0 4px 14px rgba(0,0,0,.06));
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: var(--space-3, 12px);
+      min-height: calc(100vh - 60px);
+    }
+    
+    .form-card {
+      padding: var(--space-4, 16px);
+      margin-bottom: var(--space-4, 16px);
+    }
+    
+    .header {
+      margin-bottom: var(--space-4, 16px);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2, 8px);
+    }
+    
+    .title {
+      font-size: var(--font-size-2xl, 24px);
+    }
+    
+    .back-btn {
+      align-self: flex-start;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .btn {
+      width: 100%;
+      min-width: unset;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: var(--space-2, 8px);
+    }
+    
+    .form-card {
+      padding: var(--space-3, 12px);
+      border-radius: var(--radius, 8px);
+    }
+    
+    .title {
+      font-size: var(--font-size-xl, 20px);
+    }
+    
+    .form-input, 
+    .form-select {
+      padding: var(--space-2, 8px) var(--space-3, 12px);
+      font-size: var(--font-size-sm, 14px);
+    }
   }
 
   .form-grid {
@@ -58,13 +122,14 @@ export const formStyles = css`
   @media (max-width: 1024px) {
     .form-grid {
       grid-template-columns: 1fr 1fr;
+      gap: var(--space-4, 16px);
     }
   }
 
   @media (max-width: 768px) {
     .form-grid {
       grid-template-columns: 1fr;
-      gap: var(--space-4, 16px);
+      gap: var(--space-3, 12px);
     }
   }
 
