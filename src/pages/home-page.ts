@@ -1,10 +1,11 @@
 // src/pages/home-page.ts
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { i18n, I18nController } from '../i18n/i18n';
 import { Router } from '../router/router';
 import type { Employee } from '../models/employee';
 import { employeeStore } from '../stores/employee-store';
+import { homeStyles } from '../styles/home.css';
 
 // Import components
 import '../components/icons/icon-menu';
@@ -26,74 +27,7 @@ export class HomePage extends LitElement {
   @state() private currentPage = 1;
   @state() private searchTerm = '';
 
-  static styles = css`
-    :host { 
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      width: 100%;
-      background: var(--color-bg, #f6f6f6);
-      overflow: hidden;
-    }
-
-    /* Header */
-    .page-head {
-      display: flex; 
-      align-items: center; 
-      justify-content: space-between;
-      padding: 16px 24px;
-      flex-shrink: 0;
-    }
-    
-    .title {
-      color: var(--color-primary, #ff6a00);
-      font-size: var(--font-size-2xl); 
-      font-weight: 800; 
-      letter-spacing: .2px;
-      margin: 0;
-    }
-    
-    .controls {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
-    /* Search */
-    .search-box {
-      padding: 16px 24px;
-      background: var(--color-surface, #fff);
-      border-bottom: 1px solid #e0e0e0;
-      flex-shrink: 0;
-    }
-
-    /* Content Area */
-    .content-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      padding: 16px 0;
-    }
-
-    .content-scroll {
-      flex: 1;
-      overflow-y: auto;
-      padding-bottom: 16px;
-    }
-
-    @media (max-width: 768px) {
-      .page-head {
-        flex-direction: column;
-        gap: 16px;
-        align-items: stretch;
-      }
-
-      .controls {
-        justify-content: center;
-      }
-    }
-  `;
+  static styles = homeStyles;
 
   connectedCallback() {
     super.connectedCallback();

@@ -9,6 +9,21 @@ const globalStyles = `
     --color-muted: #888;
     --color-primary: #ff6a00;  
     --color-primary-600: #e45f00;
+    --color-error: #ff4444;
+    --color-text: #2b2b2b;
+    --color-muted: #888;
+    --color-primary: #ff6a00;  
+    --color-primary-600: #e45f00;
+    --color-error: #ff4444;
+    --color-border: #e0e0e0;
+    --color-border-light: #eee;
+    --color-border-lighter: #f0f0f0;
+    --color-border-lightest: #f4f4f4;
+    --color-border-subtle: #f5f5f5;
+    --color-hover-bg: #f5f5f5;
+    --color-hover-bg-dark: #e0e0e0;
+    --color-secondary: #5a52b3;
+    --color-disabled: #c8c8c8;
     --radius: 12px;
     --shadow: 0 4px 14px rgba(0,0,0,.06);
     
@@ -142,7 +157,17 @@ export const theme = css`
     --color-muted: #888;
     --color-primary: #ff6a00;  
     --color-primary-600: #e45f00;
-    --radius: 5px;
+    --color-error: #ff4444;
+    --color-border: #e0e0e0;
+    --color-border-light: #eee;
+    --color-border-lighter: #f0f0f0;
+    --color-border-lightest: #f4f4f4;
+    --color-border-subtle: #f5f5f5;
+    --color-hover-bg: #f5f5f5;
+    --color-hover-bg-dark: #e0e0e0;
+    --color-secondary: #5a52b3;
+    --color-disabled: #c8c8c8;
+    --radius: 12px;
     --shadow: 0 4px 14px rgba(0,0,0,.06);
     
     /* Typography Scale - Desktop */

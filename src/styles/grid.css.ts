@@ -25,11 +25,11 @@ export const gridStyles = css`
   }
 
   .emp-card {
-    background: var(--color-surface, #fff);
-    border: 1px solid #dedede;
-    border-radius: var(--radius, 2px);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius);
     padding: var(--space-6, 24px);
-    box-shadow: var(--shadow, 0 4px 14px rgba(0,0,0,.06));
+    box-shadow: var(--shadow);
     transition: box-shadow .2s ease, transform .2s ease;
   }
   
@@ -58,14 +58,14 @@ export const gridStyles = css`
   }
   
   .label {
-    color: var(--color-muted, #9a9a9a);
+    color: var(--color-muted);
     font-size: var(--font-size-xs, 13px);
     line-height: 1.2;
     margin-bottom: var(--space-2, 6px);
   }
   
   .value {
-    color: var(--color-text, #2b2b2b);
+    color: var(--color-text);
     font-size: var(--font-size-base, 16px);
     font-weight: 700;
     word-break: break-word;
@@ -84,9 +84,9 @@ export const gridStyles = css`
     gap: var(--space-2, 8px);
     border: 0; 
     cursor: pointer; 
-    border-radius: var(--radius, 8px);
+    border-radius: var(--radius);
     padding: var(--space-2, 8px) var(--space-4, 14px); 
-    color: #fff; 
+    color: var(--color-surface); 
     font-weight: 600; 
     font-size: var(--font-size-sm, 14px);
     transition: filter .2s ease, transform .2s ease;
@@ -100,11 +100,11 @@ export const gridStyles = css`
   }
   
   .btn-edit { 
-    background: #5a52b3; 
+    background: var(--color-secondary); 
   }
   
   .btn-del { 
-    background: var(--color-primary, #ff6a00); 
+    background: var(--color-primary); 
   }
   
   .btn:hover {
@@ -124,7 +124,7 @@ export const gridStyles = css`
   
   .empty-state .label {
     font-size: var(--font-size-sm, 14px);
-    color: var(--color-muted, #666);
+    color: var(--color-muted);
     margin: 0;
   }
 `;

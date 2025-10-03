@@ -10,7 +10,7 @@ export const navStyles = css`
     position: sticky; 
     top: 0; 
     z-index: 10;
-    background: var(--color-surface, #fff);
+    background: var(--color-surface);
     width: 100%;
     overflow: visible;
   }
@@ -31,7 +31,7 @@ export const navStyles = css`
     display: flex; 
     align-items: center; 
     gap: var(--space-3, 12px);
-    color: var(--color-text, #2b2b2b);
+    color: var(--color-text);
     font-weight: 700;
     font-size: var(--font-size-lg, 18px);
     margin-left: 0;
@@ -54,7 +54,7 @@ export const navStyles = css`
     display: flex; 
     align-items: center; 
     gap: var(--space-5, 20px);
-    color: var(--color-primary, #ff6a00);
+    color: var(--color-primary);
     font-weight: 600; 
     font-size: var(--font-size-sm, 14px);
     margin-right: 0;
@@ -70,7 +70,7 @@ export const navStyles = css`
     display: inline-flex; 
     align-items: center; 
     gap: var(--space-2, 8px);
-    color: var(--color-primary, #ff6a00); 
+    color: var(--color-primary); 
     text-decoration: none;
     transition: opacity 0.2s ease;
     margin-right: var(--space-4, 15px);
@@ -84,7 +84,7 @@ export const navStyles = css`
     width: 16px; 
     height: 16px; 
     display: inline-block; 
-    color: var(--color-primary, #ff6a00); 
+    color: var(--color-primary); 
   }
   
   /* Hamburger Menu */
@@ -104,7 +104,7 @@ export const navStyles = css`
   .hamburger span {
     width: 100%;
     height: 2px;
-    background: var(--color-primary, #ff6a00);
+    background: var(--color-primary);
     border-radius: 2px;
     transition: 0.3s;
   }
@@ -124,8 +124,8 @@ export const navStyles = css`
       top: 56px;
       left: 0;
       right: 0;
-      background: var(--color-surface, #fff);
-      border-bottom: 1px solid #eee;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border-light);
       padding: var(--space-2, 8px) 0;
       z-index: 9;
     }
@@ -138,7 +138,7 @@ export const navStyles = css`
       display: block;
       padding: var(--space-3, 12px) var(--space-4, 16px);
       margin: 0;
-      border-bottom: 1px solid #f5f5f5;
+      border-bottom: 1px solid var(--color-border-subtle);
     }
   }
 `;

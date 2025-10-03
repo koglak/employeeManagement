@@ -29,7 +29,7 @@ export const paginationStyles = css`
     height: 32px; 
     display: grid; 
     place-items: center; 
-    color: var(--color-text, #2b2b2b); 
+    color: var(--color-text); 
   }
   
   .page-num:hover { 
@@ -37,14 +37,14 @@ export const paginationStyles = css`
   }
   
   .page-num[aria-current="page"] {
-    background: var(--color-primary, #ff6a00); 
-    color: #fff; 
+    background: var(--color-primary); 
+    color: var(--color-surface); 
     font-weight: 700;
   }
   
   .ellipsis { 
     padding: 0 var(--space-2, 6px); 
-    color: var(--color-muted, #999); 
+    color: var(--color-muted); 
   }
 
   /* Arrow buttons */
@@ -58,7 +58,7 @@ export const paginationStyles = css`
   .page-btn svg { 
     width: 18px; 
     height: 18px; 
-    color: var(--color-primary, #ff6a00); 
+    color: var(--color-primary); 
   }
   
   .page-btn[disabled] { 
@@ -66,7 +66,7 @@ export const paginationStyles = css`
   }
   
   .page-btn[disabled] svg { 
-    color: #c8c8c8; 
+    color: var(--color-disabled); 
   }
   
   .page-btn:not([disabled]):hover { 

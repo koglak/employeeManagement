@@ -9,9 +9,9 @@ export const tableStyles = css`
   .table-container { 
     margin: 0 var(--space-6, 24px); 
     padding: var(--space-4, 16px); 
-    background: var(--color-surface, #fff); 
-    border: 1px solid #eee; 
-    border-radius: var(--radius, 12px); 
+    background: var(--color-surface); 
+    border: 1px solid var(--color-border-light); 
+    border-radius: var(--radius); 
     overflow-x: auto; 
   }
   
@@ -23,21 +23,21 @@ export const tableStyles = css`
   
   thead th {
     font-weight: 700; 
-    color: var(--color-primary, #ff6a00); 
+    color: var(--color-primary); 
     text-align: left; 
     font-size: var(--font-size-xs, 13px);
     padding: var(--space-4, 14px) var(--space-3, 12px); 
-    border-bottom: 1px solid #f0f0f0; 
+    border-bottom: 1px solid var(--color-border-lighter); 
     white-space: nowrap; 
-    background: var(--color-surface, #fff);
+    background: var(--color-surface);
   }
   
   tbody td { 
     padding: var(--space-4, 16px) var(--space-3, 12px); 
-    border-bottom: 1px solid #f4f4f4; 
+    border-bottom: 1px solid var(--color-border-lightest); 
     white-space: nowrap; 
     vertical-align: middle; 
-    color: var(--color-text, #2b2b2b); 
+    color: var(--color-text); 
   }
   
   tbody tr:hover { 
@@ -62,7 +62,7 @@ export const tableStyles = css`
   input[type="checkbox"] { 
     width: 16px; 
     height: 16px; 
-    accent-color: var(--color-primary, #ff6a00); 
+    accent-color: var(--color-primary); 
   }
 
   .first { 
@@ -81,7 +81,7 @@ export const tableStyles = css`
     cursor: pointer; 
     padding: 0; 
     line-height: 0;
-    color: var(--color-primary, #ff6a00);
+    color: var(--color-primary);
   }
   
   .icon-btn:hover { 

@@ -27,7 +27,7 @@ export const formStyles = css`
     align-items: center;
     gap: var(--space-2, 8px);
     padding: var(--space-2, 8px) var(--space-4, 16px);
-    background: #f5f5f5;
+    background: var(--color-hover-bg);
     color: var(--color-text);
     text-decoration: none;
     border-radius: var(--radius, 8px);
@@ -36,7 +36,7 @@ export const formStyles = css`
   }
 
   .back-btn:hover {
-    background: #e0e0e0;
+    background: var(--color-hover-bg-dark);
   }
 
   .form-card {
@@ -78,7 +78,7 @@ export const formStyles = css`
   .form-input, 
   .form-select {
     padding: var(--space-3, 12px) var(--space-4, 16px);
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--color-border);
     border-radius: var(--radius, 8px);
     font-size: var(--font-size-base, 16px);
     background: var(--color-surface);
@@ -94,11 +94,11 @@ export const formStyles = css`
 
   .form-input.error, 
   .form-select.error {
-    border-color: #ff4444;
+    border-color: var(--color-error);
   }
 
   .error-message {
-    color: #ff4444;
+    color: var(--color-error);
     font-size: var(--font-size-xs, 12px);
     margin-top: var(--space-1, 4px);
   }
@@ -126,7 +126,7 @@ export const formStyles = css`
 
   .btn-primary {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-surface);
   }
 
   .btn-primary:hover {
@@ -134,12 +134,12 @@ export const formStyles = css`
   }
 
   .btn-secondary {
-    background: #f5f5f5;
+    background: var(--color-hover-bg);
     color: var(--color-text);
   }
 
   .btn-secondary:hover {
-    background: #e0e0e0;
+    background: var(--color-hover-bg-dark);
   }
 
   .btn:disabled {

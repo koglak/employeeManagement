@@ -42,7 +42,7 @@ export const languageStyles = css`
     min-width: 140px;
     width: max-content;
     background: var(--color-surface);
-    border: 1px solid #eee;
+    border: 1px solid var(--color-border-light);
     border-radius: 10px;
     box-shadow: var(--shadow, 0 4px 14px rgba(0,0,0,.06));
     overflow: hidden;
