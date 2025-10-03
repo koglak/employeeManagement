@@ -5,22 +5,12 @@ A modern, responsive employee management application built with **Lit** web comp
 ## 🎥 Demo
 
 ### Web Interface
-<p align="center">
-   <video src="https://raw.githubusercontent.com/koglak/employeeManagement/main/public/web.mp4" controls muted playsinline width="800">
-      Tarayıcınız video etiketini desteklemiyor. 
-   </video>
-</p>
+![Demo](public/web.gif)
+
 
 ### Mobile Responsive Design
-<p align="center">
-   <video src="https://raw.githubusercontent.com/koglak/employeeManagement/main/public/mobile.mp4" controls muted playsinline width="360">
-      Tarayıcınız video etiketini desteklemiyor.
-   </video>
-</p>
+![Demo](public/mobile.gif)
 
-> Not: GitHub bazı durumlarda depo içi MP4 dosyalarını <video> etiketiyle göstermeyebilir (önbellek/CORS). Eğer görünmüyorsa Issue üzerinden yükleyip (user-images URL) buraya o linkleri koyabilirsiniz ya da GIF dönüştürme yaklaşımını kullanabilirsiniz.
-
-> **Note**: To properly display videos in GitHub README, upload the MP4 files through GitHub Issues or Discussions, then copy the generated URLs above.
 
 ## ✨ Features
 
