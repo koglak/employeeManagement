@@ -142,7 +142,7 @@ export const theme = css`
     --color-muted: #888;
     --color-primary: #ff6a00;  
     --color-primary-600: #e45f00;
-    --radius: 12px;
+    --radius: 5px;
     --shadow: 0 4px 14px rgba(0,0,0,.06);
     
     /* Typography Scale - Desktop */
