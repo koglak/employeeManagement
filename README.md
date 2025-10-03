@@ -5,16 +5,12 @@ A modern, responsive employee management application built with **Lit** web comp
 ## 🎥 Demo
 
 ### Web Interface
-<video width="100%" controls>
-  <source src="public/web.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://user-images.githubusercontent.com/your-user-id/web.mp4
 
 ### Mobile Responsive Design
-<video width="100%" controls>
-  <source src="public/mobile.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://user-images.githubusercontent.com/your-user-id/mobile.mp4
+
+> **Note**: To properly display videos in GitHub README, upload the MP4 files through GitHub Issues or Discussions, then copy the generated URLs above.
 
 ## ✨ Features
 
@@ -55,6 +51,7 @@ A modern, responsive employee management application built with **Lit** web comp
 
 ## 📊 Test Coverage
 
+📋 **[View Detailed Coverage Report](coverage/src/index.html)** - Interactive HTML coverage report with line-by-line analysis
 ![Test Coverage](public/coverage.png)
 
 ## 🚀 Getting Started
