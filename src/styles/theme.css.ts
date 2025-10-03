@@ -10,12 +10,11 @@ const globalStyles = `
     --color-primary: #ff6a00;  
     --color-primary-600: #e45f00;
     --color-error: #ff4444;
-    --color-text: #2b2b2b;
-    --color-muted: #888;
-    --color-primary: #ff6a00;  
-    --color-primary-600: #e45f00;
-    --color-error: #ff4444;
+    --color-warning: #ff9800;
+    --color-success: #4caf50;
+    --color-info: #2196f3;
     --color-border: #e0e0e0;
+    --color-border-dark: #888;
     --color-border-light: #eee;
     --color-border-lighter: #f0f0f0;
     --color-border-lightest: #f4f4f4;

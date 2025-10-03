@@ -1,6 +1,7 @@
 // src/stores/employee-store.ts
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import type { Employee, EmployeeCreateData, EmployeeUpdateData } from '../models/employee';
+import { DEPARTMENTS, POSITIONS } from '../constants/constants';
 
 class EmployeeStore {
     private _employees: Employee[] = [];
@@ -27,7 +28,7 @@ class EmployeeStore {
             id: this.generateId()
         };
 
-        this._employees.push(employee);
+        this._employees.unshift(employee);
         this.saveToStorage();
         this.emit();
         return employee;
@@ -55,6 +56,11 @@ class EmployeeStore {
 
     getById(id: string): Employee | null {
         return this._employees.find(emp => emp.id === id) || null;
+    }
+
+    // Check if employee already exists by email
+    findByEmail(email: string): Employee | null {
+        return this._employees.find(emp => emp.email.toLowerCase() === email.toLowerCase()) || null;
     }
 
     getAllEmployees(): Promise<Employee[]> {
@@ -106,18 +112,6 @@ class EmployeeStore {
     // Sample data
     private seedData() {
         if (this._employees.length === 0) {
-            const departments = ['Engineering', 'Design', 'HR', 'Finance', 'Marketing', 'Sales', 'Operations', 'Legal'];
-            const positions = {
-                'Engineering': ['Senior Software Developer', 'Frontend Developer', 'Backend Developer', 'Tech Lead', 'DevOps Engineer', 'QA Engineer'],
-                'Design': ['UX Designer', 'UI Designer', 'Product Designer', 'Graphic Designer', 'Design Lead'],
-                'HR': ['HR Specialist', 'HR Manager', 'Recruiter', 'HR Business Partner'],
-                'Finance': ['Financial Analyst', 'Accountant', 'Finance Manager', 'Budget Specialist'],
-                'Marketing': ['Marketing Specialist', 'Digital Marketing Manager', 'Content Creator', 'Brand Manager'],
-                'Sales': ['Sales Representative', 'Account Manager', 'Sales Director', 'Business Development'],
-                'Operations': ['Operations Manager', 'Supply Chain Specialist', 'Project Manager', 'Operations Analyst'],
-                'Legal': ['Legal Counsel', 'Contract Specialist', 'Compliance Officer', 'Legal Assistant']
-            };
-
             const firstNames = [
                 'Ahmet', 'Mehmet', 'Mustafa', 'Ali', 'Hüseyin', 'Hasan', 'İbrahim', 'İsmail', 'Osman', 'Murat',
                 'Ayşe', 'Fatma', 'Emine', 'Hatice', 'Zeynep', 'Şerife', 'Meryem', 'Hanife', 'Rabia', 'Elif',
@@ -143,8 +137,8 @@ class EmployeeStore {
             for (let i = 0; i < 250; i++) {
                 const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
                 const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-                const department = departments[Math.floor(Math.random() * departments.length)];
-                const position = positions[department as keyof typeof positions][Math.floor(Math.random() * positions[department as keyof typeof positions].length)];
+                const department = DEPARTMENTS[Math.floor(Math.random() * DEPARTMENTS.length)];
+                const position = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
 
                 // Random dates
                 const employmentYear = 2018 + Math.floor(Math.random() * 7); // 2018-2024

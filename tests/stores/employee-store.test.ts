@@ -23,13 +23,13 @@ describe('Employee Store', () => {
         birthDate: '1990-05-15'
     };
 
-  beforeEach(() => {
-    // Clear the store and reset mocks
-    vi.clearAllMocks();
-    localStorageMock.getItem.mockReturnValue(null);
-    localStorageMock.setItem.mockImplementation(() => {}); // Don't throw by default
-    employeeStore.clear();
-  });    afterEach(() => {
+    beforeEach(() => {
+        // Clear the store and reset mocks
+        vi.clearAllMocks();
+        localStorageMock.getItem.mockReturnValue(null);
+        localStorageMock.setItem.mockImplementation(() => { }); // Don't throw by default
+        employeeStore.clear();
+    }); afterEach(() => {
         employeeStore.clear();
     });
 

@@ -45,7 +45,17 @@ export class Router {
     }
 
     getCurrentRoute(): Route | null {
-        return this.routes.find(route => route.path === this.currentPath) || null;
+        const currentPath = this.currentPath;
+
+        // First try exact match
+        let route = this.routes.find(route => route.path === currentPath);
+
+        // If no exact match, try pattern matching for update routes
+        if (!route && currentPath.startsWith('/update/')) {
+            route = this.routes.find(route => route.path === '/update');
+        }
+
+        return route || null;
     }
 
     private handleRouteChange() {
