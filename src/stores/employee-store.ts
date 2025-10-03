@@ -106,17 +106,8 @@ class EmployeeStore {
     // Sample data
     private seedData() {
         if (this._employees.length === 0) {
-            const departments = ['Engineering', 'Design', 'HR', 'Finance', 'Marketing', 'Sales', 'Operations', 'Legal'];
-            const positions = {
-                'Engineering': ['Senior Software Developer', 'Frontend Developer', 'Backend Developer', 'Tech Lead', 'DevOps Engineer', 'QA Engineer'],
-                'Design': ['UX Designer', 'UI Designer', 'Product Designer', 'Graphic Designer', 'Design Lead'],
-                'HR': ['HR Specialist', 'HR Manager', 'Recruiter', 'HR Business Partner'],
-                'Finance': ['Financial Analyst', 'Accountant', 'Finance Manager', 'Budget Specialist'],
-                'Marketing': ['Marketing Specialist', 'Digital Marketing Manager', 'Content Creator', 'Brand Manager'],
-                'Sales': ['Sales Representative', 'Account Manager', 'Sales Director', 'Business Development'],
-                'Operations': ['Operations Manager', 'Supply Chain Specialist', 'Project Manager', 'Operations Analyst'],
-                'Legal': ['Legal Counsel', 'Contract Specialist', 'Compliance Officer', 'Legal Assistant']
-            };
+            const departments = ['Analytics', 'Tech'];
+            const positions = ["Junior", "Medior", "Senior"];
 
             const firstNames = [
                 'Ahmet', 'Mehmet', 'Mustafa', 'Ali', 'Hüseyin', 'Hasan', 'İbrahim', 'İsmail', 'Osman', 'Murat',
@@ -144,7 +135,7 @@ class EmployeeStore {
                 const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
                 const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
                 const department = departments[Math.floor(Math.random() * departments.length)];
-                const position = positions[department as keyof typeof positions][Math.floor(Math.random() * positions[department as keyof typeof positions].length)];
+                const position = positions[Math.floor(Math.random() * positions.length)];
 
                 // Random dates
                 const employmentYear = 2018 + Math.floor(Math.random() * 7); // 2018-2024

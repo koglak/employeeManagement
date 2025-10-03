@@ -106,28 +106,28 @@ describe('Shared Styles System', () => {
         });
     });
 
-  describe('Global Styles Injection', () => {
-    beforeEach(() => {
-      // Clean up any existing style elements
-      const existingStyles = document.querySelectorAll('#global-theme-styles');
-      existingStyles.forEach(el => el.remove());
-    });
+    describe('Global Styles Injection', () => {
+        beforeEach(() => {
+            // Clean up any existing style elements
+            const existingStyles = document.querySelectorAll('#global-theme-styles');
+            existingStyles.forEach(el => el.remove());
+        });
 
-    afterEach(() => {
-      // Clean up after tests
-      const existingStyles = document.querySelectorAll('#global-theme-styles');
-      existingStyles.forEach(el => el.remove());
-    });
+        afterEach(() => {
+            // Clean up after tests
+            const existingStyles = document.querySelectorAll('#global-theme-styles');
+            existingStyles.forEach(el => el.remove());
+        });
 
-    it('should not duplicate global styles', async () => {
-      // Import theme multiple times
-      await import('../../src/styles/theme.css');
-      await import('../../src/styles/theme.css');
-      
-      const styleElements = document.querySelectorAll('#global-theme-styles');
-      expect(styleElements.length).toBeLessThanOrEqual(1);
-    });
-  });    describe('Responsive Design Support', () => {
+        it('should not duplicate global styles', async () => {
+            // Import theme multiple times
+            await import('../../src/styles/theme.css');
+            await import('../../src/styles/theme.css');
+
+            const styleElements = document.querySelectorAll('#global-theme-styles');
+            expect(styleElements.length).toBeLessThanOrEqual(1);
+        });
+    }); describe('Responsive Design Support', () => {
         it('should define mobile breakpoints', () => {
             // Test that breakpoint patterns are consistent
             const mobileBreakpoint = '@media (max-width: 768px)';
