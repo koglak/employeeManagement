@@ -9,25 +9,25 @@ import { isValidEmail, isValidPhone, isValidDate } from '../models/employee';
 
 @customElement('create-page')
 export class CreatePage extends LitElement {
-    private i18nController = new I18nController(this);
-    private router = Router.getInstance();
+  private i18nController = new I18nController(this);
+  private router = Router.getInstance();
 
-    @state()
-    private formData: EmployeeCreateData = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        department: '',
-        position: '',
-        employmentDate: '',
-        birthDate: ''
-    };
+  @state()
+  private formData: EmployeeCreateData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    department: '',
+    position: '',
+    employmentDate: '',
+    birthDate: ''
+  };
 
-    @state()
-    private errors: Partial<Record<keyof EmployeeCreateData, string>> = {};
+  @state()
+  private errors: Partial<Record<keyof EmployeeCreateData, string>> = {};
 
-    static styles = css`
+  static styles = css`
     :host {
       display: block;
       padding: 20px 0;
@@ -166,81 +166,81 @@ export class CreatePage extends LitElement {
     }
   `;
 
-    private handleInputChange(field: keyof EmployeeCreateData, value: string) {
-        this.formData = { ...this.formData, [field]: value };
+  private handleInputChange(field: keyof EmployeeCreateData, value: string) {
+    this.formData = { ...this.formData, [field]: value };
 
-        // Clear error when user starts typing
-        if (this.errors[field]) {
-            this.errors = { ...this.errors, [field]: undefined };
-        }
+    // Clear error when user starts typing
+    if (this.errors[field]) {
+      this.errors = { ...this.errors, [field]: undefined };
+    }
+  }
+
+  private validateForm(): boolean {
+    const newErrors: Partial<Record<keyof EmployeeCreateData, string>> = {};
+
+    if (!this.formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
     }
 
-    private validateForm(): boolean {
-        const newErrors: Partial<Record<keyof EmployeeCreateData, string>> = {};
-
-        if (!this.formData.firstName.trim()) {
-            newErrors.firstName = 'First name is required';
-        }
-
-        if (!this.formData.lastName.trim()) {
-            newErrors.lastName = 'Last name is required';
-        }
-
-        if (!this.formData.email.trim()) {
-            newErrors.email = 'Email is required';
-        } else if (!isValidEmail(this.formData.email)) {
-            newErrors.email = 'Invalid email format';
-        }
-
-        if (!this.formData.phone.trim()) {
-            newErrors.phone = 'Phone is required';
-        } else if (!isValidPhone(this.formData.phone)) {
-            newErrors.phone = 'Invalid phone format';
-        }
-
-        if (!this.formData.department.trim()) {
-            newErrors.department = 'Department is required';
-        }
-
-        if (!this.formData.position.trim()) {
-            newErrors.position = 'Position is required';
-        }
-
-        if (!this.formData.employmentDate.trim()) {
-            newErrors.employmentDate = 'Employment date is required';
-        } else if (!isValidDate(this.formData.employmentDate)) {
-            newErrors.employmentDate = 'Invalid date format';
-        }
-
-        if (!this.formData.birthDate.trim()) {
-            newErrors.birthDate = 'Birth date is required';
-        } else if (!isValidDate(this.formData.birthDate)) {
-            newErrors.birthDate = 'Invalid date format';
-        }
-
-        this.errors = newErrors;
-        return Object.keys(newErrors).length === 0;
+    if (!this.formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
     }
 
-    private handleSubmit(e: Event) {
-        e.preventDefault();
-
-        if (this.validateForm()) {
-            try {
-                employeeStore.add(this.formData);
-                this.router.navigate('/');
-            } catch (error) {
-                console.error('Failed to create employee:', error);
-            }
-        }
+    if (!this.formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!isValidEmail(this.formData.email)) {
+      newErrors.email = 'Invalid email format';
     }
 
-    private handleCancel() {
+    if (!this.formData.phone.trim()) {
+      newErrors.phone = 'Phone is required';
+    } else if (!isValidPhone(this.formData.phone)) {
+      newErrors.phone = 'Invalid phone format';
+    }
+
+    if (!this.formData.department.trim()) {
+      newErrors.department = 'Department is required';
+    }
+
+    if (!this.formData.position.trim()) {
+      newErrors.position = 'Position is required';
+    }
+
+    if (!this.formData.employmentDate.trim()) {
+      newErrors.employmentDate = 'Employment date is required';
+    } else if (!isValidDate(this.formData.employmentDate)) {
+      newErrors.employmentDate = 'Invalid date format';
+    }
+
+    if (!this.formData.birthDate.trim()) {
+      newErrors.birthDate = 'Birth date is required';
+    } else if (!isValidDate(this.formData.birthDate)) {
+      newErrors.birthDate = 'Invalid date format';
+    }
+
+    this.errors = newErrors;
+    return Object.keys(newErrors).length === 0;
+  }
+
+  private handleSubmit(e: Event) {
+    e.preventDefault();
+
+    if (this.validateForm()) {
+      try {
+        employeeStore.add(this.formData);
         this.router.navigate('/');
+      } catch (error) {
+        console.error('Failed to create employee:', error);
+      }
     }
+  }
 
-    render() {
-        return html`
+  private handleCancel() {
+    this.router.navigate('/');
+  }
+
+  render() {
+    return html`
       <div class="header">
         <h1 class="title">${i18n.t('create')}</h1>
         <button class="back-btn" @click=${this.handleCancel}>
@@ -360,11 +360,11 @@ export class CreatePage extends LitElement {
         </form>
       </div>
     `;
-    }
+  }
 }
 
 declare global {
-    interface HTMLElementTagNameMap {
-        'create-page': CreatePage;
-    }
+  interface HTMLElementTagNameMap {
+    'create-page': CreatePage;
+  }
 }

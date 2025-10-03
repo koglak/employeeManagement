@@ -9,23 +9,23 @@ import { isValidEmail, isValidPhone, isValidDate } from '../models/employee';
 
 @customElement('update-page')
 export class UpdatePage extends LitElement {
-    private i18nController = new I18nController(this);
-    private routerController = new RouterController(this);
-    private router = Router.getInstance();
+  private i18nController = new I18nController(this);
+  private routerController = new RouterController(this);
+  private router = Router.getInstance();
 
-    @state()
-    private employee: Employee | null = null;
+  @state()
+  private employee: Employee | null = null;
 
-    @state()
-    private formData: EmployeeUpdateData = {};
+  @state()
+  private formData: EmployeeUpdateData = {};
 
-    @state()
-    private errors: Partial<Record<keyof Employee, string>> = {};
+  @state()
+  private errors: Partial<Record<keyof Employee, string>> = {};
 
-    @state()
-    private loading = true;
+  @state()
+  private loading = true;
 
-    static styles = css`
+  static styles = css`
     :host {
       display: block;
       padding: 20px 0;
@@ -185,124 +185,124 @@ export class UpdatePage extends LitElement {
     }
   `;
 
-    connectedCallback() {
-        super.connectedCallback();
-        this.loadEmployee();
+  connectedCallback() {
+    super.connectedCallback();
+    this.loadEmployee();
+  }
+
+  private async loadEmployee() {
+    const path = this.routerController.getCurrentPath();
+    const employeeId = path.split('/update/')[1];
+
+    if (employeeId) {
+      this.employee = employeeStore.getById(employeeId);
+      if (this.employee) {
+        this.formData = { ...this.employee };
+      }
     }
 
-    private async loadEmployee() {
-        const path = this.routerController.getCurrentPath();
-        const employeeId = path.split('/update/')[1];
+    this.loading = false;
+  }
 
-        if (employeeId) {
-            this.employee = employeeStore.getById(employeeId);
-            if (this.employee) {
-                this.formData = { ...this.employee };
-            }
-        }
+  private handleInputChange(field: keyof Employee, value: string) {
+    this.formData = { ...this.formData, [field]: value };
 
-        this.loading = false;
+    // Clear error when user starts typing
+    if (this.errors[field]) {
+      this.errors = { ...this.errors, [field]: undefined };
+    }
+  }
+
+  private validateForm(): boolean {
+    const newErrors: Partial<Record<keyof Employee, string>> = {};
+
+    if (this.formData.firstName !== undefined && !this.formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
     }
 
-    private handleInputChange(field: keyof Employee, value: string) {
-        this.formData = { ...this.formData, [field]: value };
-
-        // Clear error when user starts typing
-        if (this.errors[field]) {
-            this.errors = { ...this.errors, [field]: undefined };
-        }
+    if (this.formData.lastName !== undefined && !this.formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
     }
 
-    private validateForm(): boolean {
-        const newErrors: Partial<Record<keyof Employee, string>> = {};
-
-        if (this.formData.firstName !== undefined && !this.formData.firstName.trim()) {
-            newErrors.firstName = 'First name is required';
-        }
-
-        if (this.formData.lastName !== undefined && !this.formData.lastName.trim()) {
-            newErrors.lastName = 'Last name is required';
-        }
-
-        if (this.formData.email !== undefined) {
-            if (!this.formData.email.trim()) {
-                newErrors.email = 'Email is required';
-            } else if (!isValidEmail(this.formData.email)) {
-                newErrors.email = 'Invalid email format';
-            }
-        }
-
-        if (this.formData.phone !== undefined) {
-            if (!this.formData.phone.trim()) {
-                newErrors.phone = 'Phone is required';
-            } else if (!isValidPhone(this.formData.phone)) {
-                newErrors.phone = 'Invalid phone format';
-            }
-        }
-
-        if (this.formData.department !== undefined && !this.formData.department.trim()) {
-            newErrors.department = 'Department is required';
-        }
-
-        if (this.formData.position !== undefined && !this.formData.position.trim()) {
-            newErrors.position = 'Position is required';
-        }
-
-        if (this.formData.employmentDate !== undefined) {
-            if (!this.formData.employmentDate.trim()) {
-                newErrors.employmentDate = 'Employment date is required';
-            } else if (!isValidDate(this.formData.employmentDate)) {
-                newErrors.employmentDate = 'Invalid date format';
-            }
-        }
-
-        if (this.formData.birthDate !== undefined) {
-            if (!this.formData.birthDate.trim()) {
-                newErrors.birthDate = 'Birth date is required';
-            } else if (!isValidDate(this.formData.birthDate)) {
-                newErrors.birthDate = 'Invalid date format';
-            }
-        }
-
-        this.errors = newErrors;
-        return Object.keys(newErrors).length === 0;
+    if (this.formData.email !== undefined) {
+      if (!this.formData.email.trim()) {
+        newErrors.email = 'Email is required';
+      } else if (!isValidEmail(this.formData.email)) {
+        newErrors.email = 'Invalid email format';
+      }
     }
 
-    private handleSubmit(e: Event) {
-        e.preventDefault();
-
-        if (this.employee && this.validateForm()) {
-            try {
-                employeeStore.update(this.employee.id, this.formData);
-                this.router.navigate('/');
-            } catch (error) {
-                console.error('Failed to update employee:', error);
-            }
-        }
+    if (this.formData.phone !== undefined) {
+      if (!this.formData.phone.trim()) {
+        newErrors.phone = 'Phone is required';
+      } else if (!isValidPhone(this.formData.phone)) {
+        newErrors.phone = 'Invalid phone format';
+      }
     }
 
-    private handleDelete() {
-        if (this.employee && confirm('Are you sure you want to delete this employee?')) {
-            try {
-                employeeStore.delete(this.employee.id);
-                this.router.navigate('/');
-            } catch (error) {
-                console.error('Failed to delete employee:', error);
-            }
-        }
+    if (this.formData.department !== undefined && !this.formData.department.trim()) {
+      newErrors.department = 'Department is required';
     }
 
-    private handleCancel() {
+    if (this.formData.position !== undefined && !this.formData.position.trim()) {
+      newErrors.position = 'Position is required';
+    }
+
+    if (this.formData.employmentDate !== undefined) {
+      if (!this.formData.employmentDate.trim()) {
+        newErrors.employmentDate = 'Employment date is required';
+      } else if (!isValidDate(this.formData.employmentDate)) {
+        newErrors.employmentDate = 'Invalid date format';
+      }
+    }
+
+    if (this.formData.birthDate !== undefined) {
+      if (!this.formData.birthDate.trim()) {
+        newErrors.birthDate = 'Birth date is required';
+      } else if (!isValidDate(this.formData.birthDate)) {
+        newErrors.birthDate = 'Invalid date format';
+      }
+    }
+
+    this.errors = newErrors;
+    return Object.keys(newErrors).length === 0;
+  }
+
+  private handleSubmit(e: Event) {
+    e.preventDefault();
+
+    if (this.employee && this.validateForm()) {
+      try {
+        employeeStore.update(this.employee.id, this.formData);
         this.router.navigate('/');
+      } catch (error) {
+        console.error('Failed to update employee:', error);
+      }
+    }
+  }
+
+  private handleDelete() {
+    if (this.employee && confirm('Are you sure you want to delete this employee?')) {
+      try {
+        employeeStore.delete(this.employee.id);
+        this.router.navigate('/');
+      } catch (error) {
+        console.error('Failed to delete employee:', error);
+      }
+    }
+  }
+
+  private handleCancel() {
+    this.router.navigate('/');
+  }
+
+  render() {
+    if (this.loading) {
+      return html`<div class="loading">Loading...</div>`;
     }
 
-    render() {
-        if (this.loading) {
-            return html`<div class="loading">Loading...</div>`;
-        }
-
-        if (!this.employee) {
-            return html`
+    if (!this.employee) {
+      return html`
         <div class="not-found">
           <h2>Employee not found</h2>
           <button class="btn btn-primary" @click=${this.handleCancel}>
@@ -310,9 +310,9 @@ export class UpdatePage extends LitElement {
           </button>
         </div>
       `;
-        }
+    }
 
-        return html`
+    return html`
       <div class="header">
         <h1 class="title">${i18n.t('update')}</h1>
         <button class="back-btn" @click=${this.handleCancel}>
@@ -435,11 +435,11 @@ export class UpdatePage extends LitElement {
         </form>
       </div>
     `;
-    }
+  }
 }
 
 declare global {
-    interface HTMLElementTagNameMap {
-        'update-page': UpdatePage;
-    }
+  interface HTMLElementTagNameMap {
+    'update-page': UpdatePage;
+  }
 }

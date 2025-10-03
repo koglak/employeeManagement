@@ -8,11 +8,11 @@ import { i18n, I18nController } from '../../i18n/i18n';
 
 @customElement('employee-table')
 export class EmployeeTable extends LitElement {
-    private i18nController = new I18nController(this);
-    @property({ type: Array }) employees: Employee[] = [];
-    @state() private selected = new Set<string>();
+  private i18nController = new I18nController(this);
+  @property({ type: Array }) employees: Employee[] = [];
+  @state() private selected = new Set<string>();
 
-    static styles = css`
+  static styles = css`
     :host { display:block; }
     .table-container{ 
       margin: 0 var(--space-6, 24px); 
@@ -76,27 +76,27 @@ export class EmployeeTable extends LitElement {
     .icon-btn icon-edit, .icon-btn icon-delete{ width: 18px; height: 18px; }
   `;
 
-    private get allSelected() {
-        return this.employees.length > 0 && this.employees.every(e => this.selected.has(e.id));
-    }
-    private toggleAll(e: Event) {
-        const on = (e.target as HTMLInputElement).checked;
-        const next = new Set(this.selected);
-        this.employees.forEach(emp => on ? next.add(emp.id) : next.delete(emp.id));
-        this.selected = next;
-    }
-    private toggleOne(id: string, e: Event) {
-        const on = (e.target as HTMLInputElement).checked;
-        const next = new Set(this.selected);
-        on ? next.add(id) : next.delete(id);
-        this.selected = next;
-    }
+  private get allSelected() {
+    return this.employees.length > 0 && this.employees.every(e => this.selected.has(e.id));
+  }
+  private toggleAll(e: Event) {
+    const on = (e.target as HTMLInputElement).checked;
+    const next = new Set(this.selected);
+    this.employees.forEach(emp => on ? next.add(emp.id) : next.delete(emp.id));
+    this.selected = next;
+  }
+  private toggleOne(id: string, e: Event) {
+    const on = (e.target as HTMLInputElement).checked;
+    const next = new Set(this.selected);
+    on ? next.add(id) : next.delete(id);
+    this.selected = next;
+  }
 
-    private edit(emp: Employee) { this.dispatchEvent(new CustomEvent('edit-employee', { detail: { employee: emp }, bubbles: true, composed: true })); }
-    private del(emp: Employee) { this.dispatchEvent(new CustomEvent('delete-employee', { detail: { employee: emp }, bubbles: true, composed: true })); }
+  private edit(emp: Employee) { this.dispatchEvent(new CustomEvent('edit-employee', { detail: { employee: emp }, bubbles: true, composed: true })); }
+  private del(emp: Employee) { this.dispatchEvent(new CustomEvent('delete-employee', { detail: { employee: emp }, bubbles: true, composed: true })); }
 
-    render() {
-        return html`
+  render() {
+    return html`
       <div class="table-container">
         <table>
           <thead>
@@ -139,6 +139,6 @@ export class EmployeeTable extends LitElement {
         </table>
       </div>
     `;
-    }
+  }
 }
 declare global { interface HTMLElementTagNameMap { 'employee-table': EmployeeTable } }

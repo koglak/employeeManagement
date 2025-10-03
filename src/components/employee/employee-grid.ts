@@ -9,11 +9,11 @@ import { i18n, I18nController } from '../../i18n/i18n';
 
 @customElement('employee-grid')
 export class EmployeeGrid extends LitElement {
-    private i18nController = new I18nController(this);
+  private i18nController = new I18nController(this);
 
-    @property({ type: Array }) employees: Employee[] = [];
+  @property({ type: Array }) employees: Employee[] = [];
 
-    static styles = css`
+  static styles = css`
     :host { display:block; }
 
     .grid-wrap {
@@ -90,23 +90,23 @@ export class EmployeeGrid extends LitElement {
     .btn:hover { filter:brightness(.95); transform: translateY(-1px); }
   `;
 
-    private edit(employee: Employee) {
-        this.dispatchEvent(new CustomEvent('edit-employee', { detail: { employee }, bubbles: true, composed: true }));
-    }
-    private del(employee: Employee) {
-        this.dispatchEvent(new CustomEvent('delete-employee', { detail: { employee }, bubbles: true, composed: true }));
-    }
+  private edit(employee: Employee) {
+    this.dispatchEvent(new CustomEvent('edit-employee', { detail: { employee }, bubbles: true, composed: true }));
+  }
+  private del(employee: Employee) {
+    this.dispatchEvent(new CustomEvent('delete-employee', { detail: { employee }, bubbles: true, composed: true }));
+  }
 
-    render() {
-        if (!this.employees?.length) {
-            return html`
+  render() {
+    if (!this.employees?.length) {
+      return html`
         <div class="grid-wrap"><div class="emp-card" style="text-align:center">
           <div class="label" style="font-size: var(--font-size-sm, 14px); color: var(--color-muted, #666)">No employees found</div>
         </div></div>
       `;
-        }
+    }
 
-        return html`
+    return html`
       <div class="grid-wrap">
         <div class="grid">
           ${this.employees.map(emp => html`
@@ -162,9 +162,9 @@ export class EmployeeGrid extends LitElement {
         </div>
       </div>
     `;
-    }
+  }
 }
 
 declare global {
-    interface HTMLElementTagNameMap { 'employee-grid': EmployeeGrid; }
+  interface HTMLElementTagNameMap { 'employee-grid': EmployeeGrid; }
 }

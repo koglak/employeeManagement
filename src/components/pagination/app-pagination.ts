@@ -4,12 +4,12 @@ import { customElement, property } from 'lit/decorators.js';
 
 @customElement('app-pagination')
 export class AppPagination extends LitElement {
-    @property({ type: Number }) currentPage = 1;
-    @property({ type: Number }) totalPages = 1;
-    @property({ type: Number }) totalItems = 0;
-    @property({ type: Number }) itemsPerPage = 10;
+  @property({ type: Number }) currentPage = 1;
+  @property({ type: Number }) totalPages = 1;
+  @property({ type: Number }) totalItems = 0;
+  @property({ type: Number }) itemsPerPage = 10;
 
-    static styles = css`
+  static styles = css`
     :host { display:block; }
     .pagination {
       display: flex; 
@@ -56,36 +56,36 @@ export class AppPagination extends LitElement {
     .page-btn:not([disabled]):hover { background: rgba(255,106,0,.1); }
   `;
 
-    private generatePageList(): (number | '...')[] {
-        const total = this.totalPages, current = this.currentPage;
-        const out: (number | '...')[] = [];
-        const add = (n: number) => { if (!out.includes(n)) out.push(n); };
+  private generatePageList(): (number | '...')[] {
+    const total = this.totalPages, current = this.currentPage;
+    const out: (number | '...')[] = [];
+    const add = (n: number) => { if (!out.includes(n)) out.push(n); };
 
-        add(1);
-        if (current > 4) out.push('...');
-        for (let n = Math.max(2, current - 2); n <= Math.min(total - 1, current + 2); n++) add(n);
-        if (current < total - 3) out.push('...');
-        if (total > 1) add(total);
-        return out;
+    add(1);
+    if (current > 4) out.push('...');
+    for (let n = Math.max(2, current - 2); n <= Math.min(total - 1, current + 2); n++) add(n);
+    if (current < total - 3) out.push('...');
+    if (total > 1) add(total);
+    return out;
+  }
+
+  private goToPage(page: number) {
+    const next = Math.min(this.totalPages, Math.max(1, page));
+    if (next !== this.currentPage) {
+      this.dispatchEvent(new CustomEvent('page-change', {
+        detail: { page: next }, bubbles: true, composed: true
+      }));
     }
+  }
 
-    private goToPage(page: number) {
-        const next = Math.min(this.totalPages, Math.max(1, page));
-        if (next !== this.currentPage) {
-            this.dispatchEvent(new CustomEvent('page-change', {
-                detail: { page: next }, bubbles: true, composed: true
-            }));
-        }
-    }
+  render() {
+    if (this.totalPages <= 1) return html``;
 
-    render() {
-        if (this.totalPages <= 1) return html``;
+    const pages = this.generatePageList();
+    const prevDisabled = this.currentPage <= 1;
+    const nextDisabled = this.currentPage >= this.totalPages;
 
-        const pages = this.generatePageList();
-        const prevDisabled = this.currentPage <= 1;
-        const nextDisabled = this.currentPage >= this.totalPages;
-
-        return html`
+    return html`
       <div class="pagination" role="navigation" aria-label="Pagination">
         <!-- Sol (geri) ok: ilk sayfada gri/disabled -->
         <button class="page-btn" title="Previous" ?disabled=${prevDisabled}
@@ -96,11 +96,11 @@ export class AppPagination extends LitElement {
         </button>
 
         ${pages.map(p => p === '...'
-            ? html`<span class="ellipsis">…</span>`
-            : html`<button class="page-num"
+      ? html`<span class="ellipsis">…</span>`
+      : html`<button class="page-num"
                         aria-current=${this.currentPage === p ? 'page' : 'false'}
                         @click=${() => this.goToPage(p as number)}>${p}</button>`
-        )}
+    )}
 
         <!-- Sağ (ileri) ok: aktifken turuncu -->
         <button class="page-btn" title="Next" ?disabled=${nextDisabled}
@@ -111,11 +111,11 @@ export class AppPagination extends LitElement {
         </button>
       </div>
     `;
-    }
+  }
 }
 
 declare global {
-    interface HTMLElementTagNameMap {
-        'app-pagination': AppPagination;
-    }
+  interface HTMLElementTagNameMap {
+    'app-pagination': AppPagination;
+  }
 }
