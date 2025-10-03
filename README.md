@@ -5,10 +5,14 @@ A modern, responsive employee management application built with **Lit** web comp
 ## 🎥 Demo
 
 ### Web Interface
-https://user-images.githubusercontent.com/your-user-id/web.mp4
+👉 [Web Demo (MP4)](public/web.mp4)
+
+> GitHub üzerinde bu linke tıkladığınızda depodaki `public/web.mp4` dosya sayfası açılır ve dahili oynatıcı ile izleyebilirsiniz.
 
 ### Mobile Responsive Design
-https://user-images.githubusercontent.com/your-user-id/mobile.mp4
+👉 [Mobile Demo (MP4)](public/mobile.mp4)
+
+> Mobil görünüm videosu da `public/mobile.mp4` altında. Aynı şekilde GitHub dosya sayfasında oynatılacaktır.
 
 > **Note**: To properly display videos in GitHub README, upload the MP4 files through GitHub Issues or Discussions, then copy the generated URLs above.
 
