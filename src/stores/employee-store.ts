@@ -57,6 +57,11 @@ class EmployeeStore {
         return this._employees.find(emp => emp.id === id) || null;
     }
 
+    // Check if employee already exists by email
+    findByEmail(email: string): Employee | null {
+        return this._employees.find(emp => emp.email.toLowerCase() === email.toLowerCase()) || null;
+    }
+
     getAllEmployees(): Promise<Employee[]> {
         return Promise.resolve([...this._employees]);
     }

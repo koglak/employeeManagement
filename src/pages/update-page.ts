@@ -18,6 +18,7 @@ export class UpdatePage extends LitElement {
   @state() private employee: Employee | null = null;
   @state() private loading = false;
   @state() private pageLoading = true;
+  @state() private errorMessage = '';
 
   connectedCallback() {
     super.connectedCallback();
@@ -55,8 +56,19 @@ export class UpdatePage extends LitElement {
 
   private async updateEmployee(id: string, data: EmployeeUpdateData) {
     this.loading = true;
+    this.errorMessage = '';
 
     try {
+      // Check if email is being changed and if new email already exists
+      if (data.email && data.email !== this.employee?.email) {
+        const existingEmployee = employeeStore.findByEmail(data.email);
+        if (existingEmployee && existingEmployee.id !== id) {
+          this.errorMessage = `Employee with email "${data.email}" already exists!`;
+          this.showErrorPopup(this.errorMessage);
+          return;
+        }
+      }
+
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -64,19 +76,25 @@ export class UpdatePage extends LitElement {
 
       if (updatedEmployee) {
         console.log('Employee updated successfully:', updatedEmployee);
+        // Navigate to home page on success
         Router.getInstance().navigate('/');
       } else {
-        console.error('Failed to update employee: Employee not found');
+        this.errorMessage = 'Failed to update employee: Employee not found';
+        this.showErrorPopup(this.errorMessage);
       }
     } catch (error) {
       console.error('Failed to update employee:', error);
-      // You could implement error handling/toast notifications here
+      this.errorMessage = 'Failed to update employee. Please try again.';
+      this.showErrorPopup(this.errorMessage);
     } finally {
       this.loading = false;
     }
   }
 
-  private handleEmployeeCancel() {
+  private showErrorPopup(message: string) {
+    // Simple browser alert for now - could be replaced with a custom modal
+    alert(message);
+  } private handleEmployeeCancel() {
     Router.getInstance().navigate('/');
   }
 

@@ -13,6 +13,7 @@ export class CreatePage extends LitElement {
     static styles = [formStyles];
 
     @state() private loading = false;
+    @state() private errorMessage = '';
 
     private handleEmployeeSubmit(e: CustomEvent) {
         const { type, data } = e.detail;
@@ -24,15 +25,37 @@ export class CreatePage extends LitElement {
 
     private async createEmployee(data: EmployeeCreateData) {
         this.loading = true;
+        this.errorMessage = '';
 
         try {
+            // Check if employee with this email already exists
+            const existingEmployee = employeeStore.findByEmail(data.email);
+            if (existingEmployee) {
+                this.errorMessage = `Employee with email "${data.email}" already exists!`;
+                this.showErrorPopup(this.errorMessage);
+                return;
+            }
+
+            // Simulate API call delay
             await new Promise(resolve => setTimeout(resolve, 500));
-            employeeStore.add(data);
+
+            const newEmployee = employeeStore.add(data);
+            console.log('Employee created successfully:', newEmployee);
+
+            // Navigate to home page on success
             Router.getInstance().navigate('/');
         } catch (error) {
+            console.error('Failed to create employee:', error);
+            this.errorMessage = 'Failed to create employee. Please try again.';
+            this.showErrorPopup(this.errorMessage);
         } finally {
             this.loading = false;
         }
+    }
+
+    private showErrorPopup(message: string) {
+        // Simple browser alert for now - could be replaced with a custom modal
+        alert(message);
     }
 
     private handleEmployeeCancel() {
