@@ -9,11 +9,18 @@ export class AppLanguage extends LitElement {
   private i18nController = new I18nController(this);
 
   static styles = css`
-    :host { display:inline-flex; align-items:center; }
+    :host { 
+      display:inline-flex; 
+      align-items:center; 
+      overflow: visible;
+      position: relative;
+    }
     
     .language-selector {
       position: relative;
       display: inline-block;
+      z-index: 9999;
+      overflow: visible;
     }
     
     .selected-flag {
@@ -52,7 +59,7 @@ export class AppLanguage extends LitElement {
       border: 1px solid #eee;
       border-radius: 10px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-      z-index: 1000;
+      z-index: 99999;
       margin-top: 4px;
       overflow: hidden;
       white-space: nowrap;
@@ -100,10 +107,10 @@ export class AppLanguage extends LitElement {
     }
   `;
 
-  @state() 
+  @state()
   private language = i18n.lang;
-  
-  @state() 
+
+  @state()
   private isOpen = false;
 
   private languages = {
