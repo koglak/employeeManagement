@@ -23,6 +23,8 @@ export default {
     edit: 'Edit',
     delete: 'Delete',
     cancel: 'Cancel',
+    close: 'Close',
+    proceed: 'Proceed',
     save: 'Save',
     saving: 'Saving...',
     creating: 'Creating...',
@@ -33,4 +35,7 @@ export default {
     invalidEmail: 'Please enter a valid email address',
     invalidPhone: 'Please enter a valid phone number',
     invalidDate: 'Please enter a valid date',
+    confirmDelete: 'Are you sure?',
+    confirmDeleteMessage: 'Are you sure you want to delete this employee?',
+    employeeDeleteMessage: 'Selected employee record of {name} will be deleted?',
 };

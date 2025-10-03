@@ -22,6 +22,8 @@ export default {
     actions: 'Aksiyonlar',
     edit: 'Düzenle',
     delete: 'Sil',
+    close: 'Kapat',
+    proceed: 'Devam Et',
     cancel: 'İptal',
     save: 'Kaydet',
     saving: 'Kaydediliyor...',
@@ -33,4 +35,7 @@ export default {
     invalidEmail: 'Geçerli bir e-posta adresi girin',
     invalidPhone: 'Geçerli bir telefon numarası girin',
     invalidDate: 'Geçerli bir tarih girin',
+    confirmDelete: 'Emin Misiniz?',
+    confirmDeleteMessage: 'Bu çalışanı silmek istediğinizden emin misiniz?',
+    employeeDeleteMessage: '{name} adlı çalışan kaydını silmek istediğinizden emin misiniz?',
 };

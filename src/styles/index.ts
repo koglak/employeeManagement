@@ -7,3 +7,4 @@ export { navStyles } from './nav.css';
 export { formStyles } from './form.css';
 export { languageStyles } from './language.css';
 export { homeStyles } from './home.css';
+export { popupStyles } from './popup.css';

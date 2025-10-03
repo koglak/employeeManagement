@@ -1,7 +1,7 @@
 // src/pages/home-page.ts
 import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { i18n, I18nController } from '../i18n/i18n';
+import { i18n } from '../i18n/i18n';
 import { Router } from '../router/router';
 import type { Employee } from '../models/employee';
 import { employeeStore } from '../stores/employee-store';
@@ -14,18 +14,18 @@ import '../components/employee/employee-grid';
 import '../components/employee/employee-table';
 import '../components/employee/view-selector';
 import '../components/pagination/app-pagination';
+import '../components/popups/confirm-popup';
 
 type ViewMode = 'table' | 'grid';
 
 @customElement('home-page')
 export class HomePage extends LitElement {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private i18nCtl = new I18nController(this);
-
   @state() private employees: Employee[] = [];
   @state() private view: ViewMode = 'table';
   @state() private currentPage = 1;
   @state() private searchTerm = '';
+  @state() private showDeleteConfirm = false;
+  @state() private employeeToDelete: Employee | null = null;
 
   static styles = homeStyles;
 
@@ -75,10 +75,21 @@ export class HomePage extends LitElement {
 
   private handleDeleteEmployee(e: CustomEvent) {
     const employee = e.detail.employee;
-    if (confirm(`Are you sure you want to delete ${employee.firstName} ${employee.lastName}?`)) {
-      employeeStore.delete(employee.id);
+    this.employeeToDelete = employee;
+    this.showDeleteConfirm = true;
+  }
+
+  private confirmDelete() {
+    if (this.employeeToDelete) {
+      employeeStore.delete(this.employeeToDelete.id);
       this.loadEmployees();
     }
+    this.hideDeleteConfirm();
+  }
+
+  private hideDeleteConfirm() {
+    this.showDeleteConfirm = false;
+    this.employeeToDelete = null;
   }
 
   private handleViewChange(newView: ViewMode) {
@@ -130,6 +141,18 @@ export class HomePage extends LitElement {
           @page-change=${this.handlePageChange}
         ></app-pagination>
       </div>
+
+      ${this.showDeleteConfirm && this.employeeToDelete ? html`
+        <confirm-popup 
+          .open=${true}
+          .title=${i18n.t('confirmDelete')}
+          .message=${i18n.t('employeeDeleteMessage').replace('{name}', `${this.employeeToDelete.firstName} ${this.employeeToDelete.lastName}`)}
+          .confirmText=${i18n.t('delete')}
+          .cancelText=${i18n.t('cancel')}
+          @confirm=${this.confirmDelete}
+          @cancel=${this.hideDeleteConfirm}
+        ></confirm-popup>
+      ` : ''}
     `;
   }
 }
