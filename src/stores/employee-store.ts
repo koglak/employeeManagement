@@ -1,7 +1,7 @@
 // src/stores/employee-store.ts
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import type { Employee, EmployeeCreateData, EmployeeUpdateData } from '../models/employee';
-import { DEPARTMENTS, POSITIONS } from '../components/constants/constants';
+import { DEPARTMENTS, POSITIONS } from '../constants/constants';
 
 class EmployeeStore {
     private _employees: Employee[] = [];

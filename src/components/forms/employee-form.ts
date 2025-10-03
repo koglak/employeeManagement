@@ -4,7 +4,7 @@ import { formStyles } from '../../styles/form.css.js';
 import { i18n, I18nController } from '../../i18n/i18n.js';
 import type { Employee, EmployeeCreateData, EmployeeUpdateData } from '../../models/employee.js';
 import { isValidEmail, isValidDate, isValidPhone } from '../../models/employee.js';
-import { DEPARTMENTS, POSITIONS } from '../constants/constants.js';
+import { DEPARTMENTS, POSITIONS } from '../../constants/constants.js';
 
 interface FormData {
   firstName: string;
