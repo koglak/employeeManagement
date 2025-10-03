@@ -1,6 +1,7 @@
 // src/stores/employee-store.ts
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import type { Employee, EmployeeCreateData, EmployeeUpdateData } from '../models/employee';
+import { DEPARTMENTS, POSITIONS } from '../components/constants/constants';
 
 class EmployeeStore {
     private _employees: Employee[] = [];
@@ -111,9 +112,6 @@ class EmployeeStore {
     // Sample data
     private seedData() {
         if (this._employees.length === 0) {
-            const departments = ['Analytics', 'Tech'];
-            const positions = ["Junior", "Medior", "Senior"];
-
             const firstNames = [
                 'Ahmet', 'Mehmet', 'Mustafa', 'Ali', 'Hüseyin', 'Hasan', 'İbrahim', 'İsmail', 'Osman', 'Murat',
                 'Ayşe', 'Fatma', 'Emine', 'Hatice', 'Zeynep', 'Şerife', 'Meryem', 'Hanife', 'Rabia', 'Elif',
@@ -139,8 +137,8 @@ class EmployeeStore {
             for (let i = 0; i < 250; i++) {
                 const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
                 const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-                const department = departments[Math.floor(Math.random() * departments.length)];
-                const position = positions[Math.floor(Math.random() * positions.length)];
+                const department = DEPARTMENTS[Math.floor(Math.random() * DEPARTMENTS.length)];
+                const position = POSITIONS[Math.floor(Math.random() * POSITIONS.length)];
 
                 // Random dates
                 const employmentYear = 2018 + Math.floor(Math.random() * 7); // 2018-2024

@@ -4,46 +4,81 @@ import { formStyles } from '../../styles/form.css.js';
 import { i18n, I18nController } from '../../i18n/i18n.js';
 import type { Employee, EmployeeCreateData, EmployeeUpdateData } from '../../models/employee.js';
 import { isValidEmail, isValidDate, isValidPhone } from '../../models/employee.js';
-
-// Predefined lists
-const DEPARTMENTS = ['Analytics', 'Tech'] as const;
-const POSITIONS = ['Junior', 'Medior', 'Senior'] as const;
+import { DEPARTMENTS, POSITIONS } from '../constants/constants.js';
 
 interface FormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    birthDate: string;
-    employmentDate: string;
-    department: string;
-    position: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  birthDate: string;
+  employmentDate: string;
+  department: string;
+  position: string;
 }
 
 interface FormErrors {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    phone?: string;
-    birthDate?: string;
-    employmentDate?: string;
-    department?: string;
-    position?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  birthDate?: string;
+  employmentDate?: string;
+  department?: string;
+  position?: string;
 }
 
 @customElement('employee-form')
 export class EmployeeForm extends LitElement {
-    private i18nCtl = new I18nController(this);
-    static styles = [formStyles, css`
+  private i18nCtl = new I18nController(this);
+  static styles = [formStyles, css`
     :host {
       display: block;
     }
   `];
 
-    @property({ type: Object }) employee?: Employee;
-    @property({ type: Boolean }) loading = false;
+  @property({ type: Object }) employee?: Employee;
+  @property({ type: Boolean }) loading = false;
 
-    @state() private formData: FormData = {
+  @state() private formData: FormData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    birthDate: '',
+    employmentDate: '',
+    department: '',
+    position: ''
+  };
+
+  @state() private errors: FormErrors = {};
+  @state() private touched: Record<keyof FormData, boolean> = {
+    firstName: false,
+    lastName: false,
+    email: false,
+    phone: false,
+    birthDate: false,
+    employmentDate: false,
+    department: false,
+    position: false
+  };
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.updateFormData();
+  }
+
+  updated(changedProperties: Map<string | number | symbol, unknown>) {
+    if (changedProperties.has('employee')) {
+      this.updateFormData();
+    }
+  }
+
+  private updateFormData() {
+    if (this.employee) {
+      this.formData = { ...this.employee };
+    } else {
+      this.formData = {
         firstName: '',
         lastName: '',
         email: '',
@@ -52,149 +87,111 @@ export class EmployeeForm extends LitElement {
         employmentDate: '',
         department: '',
         position: ''
+      };
+    }
+    this.errors = {};
+    this.touched = {
+      firstName: false,
+      lastName: false,
+      email: false,
+      phone: false,
+      birthDate: false,
+      employmentDate: false,
+      department: false,
+      position: false
     };
+  }
 
-    @state() private errors: FormErrors = {};
-    @state() private touched: Record<keyof FormData, boolean> = {
-        firstName: false,
-        lastName: false,
-        email: false,
-        phone: false,
-        birthDate: false,
-        employmentDate: false,
-        department: false,
-        position: false
-    };
+  private validateField(field: keyof FormData, value: string): string | undefined {
+    switch (field) {
+      case 'firstName':
+      case 'lastName':
+        return value.trim().length === 0 ? `${field === 'firstName' ? 'First' : 'Last'} name is required` : undefined;
 
-    connectedCallback() {
-        super.connectedCallback();
-        this.updateFormData();
+      case 'email':
+        if (value.trim().length === 0) return 'Email is required';
+        return !isValidEmail(value) ? 'Please enter a valid email address' : undefined;
+
+      case 'phone':
+        if (value.trim().length === 0) return 'Phone is required';
+        return !isValidPhone(value) ? 'Please enter a valid phone number' : undefined;
+
+      case 'birthDate':
+      case 'employmentDate':
+        if (value.trim().length === 0) return `${field === 'birthDate' ? 'Birth' : 'Employment'} date is required`;
+        return !isValidDate(value) ? 'Please enter a valid date' : undefined;
+
+      case 'department':
+        return value.trim().length === 0 ? 'Department is required' : undefined;
+
+      case 'position':
+        return value.trim().length === 0 ? 'Position is required' : undefined;
+
+      default:
+        return undefined;
     }
+  }
 
-    updated(changedProperties: Map<string | number | symbol, unknown>) {
-        if (changedProperties.has('employee')) {
-            this.updateFormData();
-        }
+  private validateForm(): boolean {
+    const newErrors: FormErrors = {};
+    let hasErrors = false;
+
+    Object.keys(this.formData).forEach(key => {
+      const field = key as keyof FormData;
+      const error = this.validateField(field, this.formData[field]);
+      if (error) {
+        newErrors[field] = error;
+        hasErrors = true;
+      }
+    });
+
+    this.errors = newErrors;
+    return !hasErrors;
+  }
+
+  private handleInputChange(field: keyof FormData, value: string) {
+    this.formData = { ...this.formData, [field]: value };
+    this.touched = { ...this.touched, [field]: true };
+
+    // Clear error for this field if it becomes valid
+    const error = this.validateField(field, value);
+    if (!error && this.errors[field]) {
+      this.errors = { ...this.errors, [field]: undefined };
     }
+  }
 
-    private updateFormData() {
-        if (this.employee) {
-            this.formData = { ...this.employee };
-        } else {
-            this.formData = {
-                firstName: '',
-                lastName: '',
-                email: '',
-                phone: '',
-                birthDate: '',
-                employmentDate: '',
-                department: '',
-                position: ''
-            };
-        }
-        this.errors = {};
-        this.touched = {
-            firstName: false,
-            lastName: false,
-            email: false,
-            phone: false,
-            birthDate: false,
-            employmentDate: false,
-            department: false,
-            position: false
-        };
+  private handleSubmit(e: Event) {
+    e.preventDefault();
+
+    // Mark all fields as touched
+    const allTouched = Object.keys(this.formData).reduce((acc, key) => {
+      acc[key as keyof FormData] = true;
+      return acc;
+    }, {} as Record<keyof FormData, boolean>);
+    this.touched = allTouched;
+
+    if (this.validateForm()) {
+      const eventData = this.employee
+        ? { type: 'update', data: this.formData as EmployeeUpdateData, id: this.employee.id }
+        : { type: 'create', data: this.formData as EmployeeCreateData };
+
+      this.dispatchEvent(new CustomEvent('employee-submit', {
+        detail: eventData,
+        bubbles: true
+      }));
     }
+  }
 
-    private validateField(field: keyof FormData, value: string): string | undefined {
-        switch (field) {
-            case 'firstName':
-            case 'lastName':
-                return value.trim().length === 0 ? `${field === 'firstName' ? 'First' : 'Last'} name is required` : undefined;
+  private handleCancel() {
+    this.dispatchEvent(new CustomEvent('employee-cancel', {
+      bubbles: true
+    }));
+  }
 
-            case 'email':
-                if (value.trim().length === 0) return 'Email is required';
-                return !isValidEmail(value) ? 'Please enter a valid email address' : undefined;
+  render() {
+    const isUpdate = !!this.employee;
 
-            case 'phone':
-                if (value.trim().length === 0) return 'Phone is required';
-                return !isValidPhone(value) ? 'Please enter a valid phone number' : undefined;
-
-            case 'birthDate':
-            case 'employmentDate':
-                if (value.trim().length === 0) return `${field === 'birthDate' ? 'Birth' : 'Employment'} date is required`;
-                return !isValidDate(value) ? 'Please enter a valid date' : undefined;
-
-            case 'department':
-                return value.trim().length === 0 ? 'Department is required' : undefined;
-
-            case 'position':
-                return value.trim().length === 0 ? 'Position is required' : undefined;
-
-            default:
-                return undefined;
-        }
-    }
-
-    private validateForm(): boolean {
-        const newErrors: FormErrors = {};
-        let hasErrors = false;
-
-        Object.keys(this.formData).forEach(key => {
-            const field = key as keyof FormData;
-            const error = this.validateField(field, this.formData[field]);
-            if (error) {
-                newErrors[field] = error;
-                hasErrors = true;
-            }
-        });
-
-        this.errors = newErrors;
-        return !hasErrors;
-    }
-
-    private handleInputChange(field: keyof FormData, value: string) {
-        this.formData = { ...this.formData, [field]: value };
-        this.touched = { ...this.touched, [field]: true };
-
-        // Clear error for this field if it becomes valid
-        const error = this.validateField(field, value);
-        if (!error && this.errors[field]) {
-            this.errors = { ...this.errors, [field]: undefined };
-        }
-    }
-
-    private handleSubmit(e: Event) {
-        e.preventDefault();
-
-        // Mark all fields as touched
-        const allTouched = Object.keys(this.formData).reduce((acc, key) => {
-            acc[key as keyof FormData] = true;
-            return acc;
-        }, {} as Record<keyof FormData, boolean>);
-        this.touched = allTouched;
-
-        if (this.validateForm()) {
-            const eventData = this.employee
-                ? { type: 'update', data: this.formData as EmployeeUpdateData, id: this.employee.id }
-                : { type: 'create', data: this.formData as EmployeeCreateData };
-
-            this.dispatchEvent(new CustomEvent('employee-submit', {
-                detail: eventData,
-                bubbles: true
-            }));
-        }
-    }
-
-    private handleCancel() {
-        this.dispatchEvent(new CustomEvent('employee-cancel', {
-            bubbles: true
-        }));
-    }
-
-    render() {
-        const isUpdate = !!this.employee;
-
-        return html`
+    return html`
       <form class="form-card" @submit=${this.handleSubmit}>
         <div class="form-grid">
           <div class="form-group">
@@ -209,8 +206,8 @@ export class EmployeeForm extends LitElement {
               required
             >
             ${this.errors.firstName && this.touched.firstName
-                ? html`<span class="error-message">${this.errors.firstName}</span>`
-                : ''}
+        ? html`<span class="error-message">${this.errors.firstName}</span>`
+        : ''}
           </div>
 
           <div class="form-group">
@@ -225,8 +222,8 @@ export class EmployeeForm extends LitElement {
               required
             >
             ${this.errors.lastName && this.touched.lastName
-                ? html`<span class="error-message">${this.errors.lastName}</span>`
-                : ''}
+        ? html`<span class="error-message">${this.errors.lastName}</span>`
+        : ''}
           </div>
 
           <div class="form-group">
@@ -242,8 +239,8 @@ export class EmployeeForm extends LitElement {
               required
             >
             ${this.errors.employmentDate && this.touched.employmentDate
-                ? html`<span class="error-message">${this.errors.employmentDate}</span>`
-                : ''}
+        ? html`<span class="error-message">${this.errors.employmentDate}</span>`
+        : ''}
           </div>
 
           <div class="form-group">
@@ -259,8 +256,8 @@ export class EmployeeForm extends LitElement {
               required
             >
             ${this.errors.birthDate && this.touched.birthDate
-                ? html`<span class="error-message">${this.errors.birthDate}</span>`
-                : ''}
+        ? html`<span class="error-message">${this.errors.birthDate}</span>`
+        : ''}
           </div>
 
            <div class="form-group">
@@ -276,8 +273,8 @@ export class EmployeeForm extends LitElement {
               required
             >
             ${this.errors.phone && this.touched.phone
-                ? html`<span class="error-message">${this.errors.phone}</span>`
-                : ''}
+        ? html`<span class="error-message">${this.errors.phone}</span>`
+        : ''}
           </div>
 
           <div class="form-group">
@@ -292,8 +289,8 @@ export class EmployeeForm extends LitElement {
               required
             >
             ${this.errors.email && this.touched.email
-                ? html`<span class="error-message">${this.errors.email}</span>`
-                : ''}
+        ? html`<span class="error-message">${this.errors.email}</span>`
+        : ''}
           </div>
 
           <div class="form-group">
@@ -314,8 +311,8 @@ export class EmployeeForm extends LitElement {
               `)}
             </select>
             ${this.errors.department && this.touched.department
-                ? html`<span class="error-message">${this.errors.department}</span>`
-                : ''}
+        ? html`<span class="error-message">${this.errors.department}</span>`
+        : ''}
           </div>
 
           <div class="form-group">
@@ -336,8 +333,8 @@ export class EmployeeForm extends LitElement {
               `)}
             </select>
             ${this.errors.position && this.touched.position
-                ? html`<span class="error-message">${this.errors.position}</span>`
-                : ''}
+        ? html`<span class="error-message">${this.errors.position}</span>`
+        : ''}
           </div>
         </div>
 
@@ -348,14 +345,14 @@ export class EmployeeForm extends LitElement {
             ?disabled=${this.loading}
           >
             ${this.loading
-                ? html`
+        ? html`
                 <span class="loading">
                   <span class="spinner"></span>
                   ${isUpdate ? i18n.t('updating') : i18n.t('creating')}
                 </span>
               `
-                : i18n.t('save')
-            }
+        : i18n.t('save')
+      }
           </button>
           <button
             type="button"
@@ -368,11 +365,11 @@ export class EmployeeForm extends LitElement {
         </div>
       </form>
     `;
-    }
+  }
 }
 
 declare global {
-    interface HTMLElementTagNameMap {
-        'employee-form': EmployeeForm;
-    }
+  interface HTMLElementTagNameMap {
+    'employee-form': EmployeeForm;
+  }
 }

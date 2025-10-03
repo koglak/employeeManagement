@@ -8,7 +8,7 @@ import { Router } from '../../router/router';
 import './app-language';
 
 // LOGO
-import logoUrl from '../../assets/logo2.svg?url';
+import logoUrl from '/logo2.svg?url';
 
 @customElement('app-navbar')
 export class AppNavbar extends LitElement {
