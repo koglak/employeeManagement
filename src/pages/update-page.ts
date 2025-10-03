@@ -22,7 +22,13 @@ export class UpdatePage extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    this.routerController.hostConnected();
     this.loadEmployee();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.routerController.hostDisconnected();
   }
 
   private loadEmployee() {

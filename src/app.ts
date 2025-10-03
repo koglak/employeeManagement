@@ -32,7 +32,13 @@ export class EmployeeApp extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    this.routerController.hostConnected();
     this.setupRoutes();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.routerController.hostDisconnected();
   }
 
   private setupRoutes() {
