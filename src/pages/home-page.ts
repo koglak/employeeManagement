@@ -1,7 +1,7 @@
 // src/pages/home-page.ts
 import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { i18n } from '../i18n/i18n';
+import { i18n, I18nController } from '../i18n/i18n';
 import { Router } from '../router/router';
 import type { Employee } from '../models/employee';
 import { employeeStore } from '../stores/employee-store';
@@ -20,6 +20,7 @@ type ViewMode = 'table' | 'grid';
 
 @customElement('home-page')
 export class HomePage extends LitElement {
+  private i18nCtl = new I18nController(this);
   @state() private employees: Employee[] = [];
   @state() private view: ViewMode = 'table';
   @state() private currentPage = 1;
