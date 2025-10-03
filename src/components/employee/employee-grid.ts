@@ -19,7 +19,7 @@ export class EmployeeGrid extends LitElement {
     .grid-wrap {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 16px 24px;
+      padding: var(--space-4, 16px) var(--space-6, 24px);
     }
 
     .grid {
@@ -32,11 +32,11 @@ export class EmployeeGrid extends LitElement {
     }
 
     .emp-card {
-      background: #fff;
+      background: var(--color-surface, #fff);
       border: 1px solid #dedede;
-      border-radius: 2px;
-      padding: 24px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      border-radius: var(--radius, 12px);
+      padding: var(--space-6, 24px);
+      box-shadow: var(--shadow, 0 4px 14px rgba(0,0,0,.06));
       transition: box-shadow .2s ease, transform .2s ease;
     }
     .emp-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.10); transform: translateY(-2px); }
@@ -53,26 +53,35 @@ export class EmployeeGrid extends LitElement {
 
     .field { display:flex; flex-direction:column; }
     .label {
-      color:#9a9a9a;
-      font-size: 13px;
+      color: var(--color-muted, #9a9a9a);
+      font-size: var(--font-size-xs, 13px);
       line-height: 1.2;
       margin-bottom: 6px;
     }
     .value {
       color: var(--color-text, #2b2b2b);
-      font-size: 16px;
+      font-size: var(--font-size-base, 16px);
       font-weight: 700;
       word-break: break-word;
     }
 
     .card-actions {
-      display:flex; gap: 12px;
-      margin-top: 18px; padding-top: 18px;
+      display: flex; 
+      gap: var(--space-3, 12px);
+      margin-top: var(--space-5, 18px); 
+      padding-top: var(--space-5, 18px);
     }
     .btn {
-      display:inline-flex; align-items:center; gap:8px;
-      border:0; cursor:pointer; border-radius: 8px;
-      padding: 8px 14px; color:#fff; font-weight:600; font-size:14px;
+      display: inline-flex; 
+      align-items: center; 
+      gap: var(--space-2, 8px);
+      border: 0; 
+      cursor: pointer; 
+      border-radius: var(--radius, 8px);
+      padding: var(--space-2, 8px) var(--space-4, 14px); 
+      color: #fff; 
+      font-weight: 600; 
+      font-size: var(--font-size-sm, 14px);
       transition: filter .2s ease, transform .2s ease;
     }
     .btn svg, .btn icon-edit, .btn icon-delete { width:14px; height:14px; }
@@ -92,7 +101,7 @@ export class EmployeeGrid extends LitElement {
         if (!this.employees?.length) {
             return html`
         <div class="grid-wrap"><div class="emp-card" style="text-align:center">
-          <div class="label" style="font-size:14px;color:#666">No employees found</div>
+          <div class="label" style="font-size: var(--font-size-sm, 14px); color: var(--color-muted, #666)">No employees found</div>
         </div></div>
       `;
         }

@@ -41,7 +41,7 @@ export class CreatePage extends LitElement {
     }
 
     .title {
-      font-size: 28px;
+      font-size: var(--font-size-3xl, 28px);
       font-weight: 700;
       color: var(--color-text);
       margin: 0;
@@ -93,14 +93,14 @@ export class CreatePage extends LitElement {
     .form-label {
       font-weight: 600;
       color: var(--color-text);
-      font-size: 14px;
+      font-size: var(--font-size-sm, 14px);
     }
 
     .form-input, .form-select {
-      padding: 12px 16px;
+      padding: var(--space-3, 12px) var(--space-4, 16px);
       border: 2px solid #e0e0e0;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: var(--font-size-base, 16px);
       background: var(--color-surface);
       color: var(--color-text);
       transition: border-color 0.2s ease;
@@ -117,21 +117,21 @@ export class CreatePage extends LitElement {
 
     .error-message {
       color: #ff4444;
-      font-size: 12px;
-      margin-top: 4px;
+      font-size: var(--font-size-xs, 12px);
+      margin-top: var(--space-1, 4px);
     }
 
     .form-actions {
       display: flex;
-      gap: 12px;
+      gap: var(--space-3, 12px);
       justify-content: flex-end;
     }
 
     .btn {
-      padding: 12px 24px;
+      padding: var(--space-3, 12px) var(--space-6, 24px);
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: var(--font-size-base, 16px);
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;

@@ -28,17 +28,21 @@ export class AppNavbar extends LitElement {
     .bar {
       width: 100%;
       height: 56px;
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 0 16px;
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;
+      padding: 0 var(--space-4, 16px);
       box-sizing: border-box;
       min-width: 0;
       overflow: visible;
     }
     .brand {
-      display:flex; align-items:center; gap: var(--space-3);
+      display: flex; 
+      align-items: center; 
+      gap: var(--space-3, 12px);
       color: var(--color-text, #2b2b2b);
-      font-weight:700;
-      font-size: var(--font-size-lg);
+      font-weight: 700;
+      font-size: var(--font-size-lg, 18px);
       margin-left: 0;
       flex-shrink: 0;
     }
@@ -55,20 +59,25 @@ export class AppNavbar extends LitElement {
     
     /* Desktop Navigation */
     .right {
-      display:flex; align-items:center; gap: var(--space-5);
+      display: flex; 
+      align-items: center; 
+      gap: var(--space-5, 20px);
       color: var(--color-primary, #ff6a00);
-      font-weight:600; 
-      font-size: var(--font-size-sm);
-      margin-right:0;
+      font-weight: 600; 
+      font-size: var(--font-size-sm, 14px);
+      margin-right: 0;
       overflow: visible;
       position: relative;
     }
     .right app-language { display:inline-flex; }
     .link {
-      display:inline-flex; align-items:center; gap: var(--space-2);
-      color: var(--color-primary, #ff6a00); text-decoration:none;
+      display: inline-flex; 
+      align-items: center; 
+      gap: var(--space-2, 8px);
+      color: var(--color-primary, #ff6a00); 
+      text-decoration: none;
       transition: opacity 0.2s ease;
-      margin-right: 15px;
+      margin-right: var(--space-4, 15px);
     }
     .link:hover { opacity: 0.7; }
     .icon { width:16px; height:16px; display:inline-block; color: var(--color-primary, #ff6a00); }

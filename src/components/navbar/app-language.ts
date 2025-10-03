@@ -26,8 +26,8 @@ export class AppLanguage extends LitElement {
     .selected-flag {
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 4px;
+      gap: var(--space-1, 4px);
+      padding: var(--space-1, 4px);
       border: none;
       border-radius: 10px;
       background: transparent;
@@ -45,7 +45,7 @@ export class AppLanguage extends LitElement {
     .flag {
       display: flex;
       align-items: center;
-      font-size: 18px;
+      font-size: var(--font-size-lg, 18px);
       line-height: 1;
     }
     
@@ -72,8 +72,8 @@ export class AppLanguage extends LitElement {
     .option {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
+      gap: var(--space-2, 8px);
+      padding: var(--space-3, 10px) var(--space-4, 16px);
       cursor: pointer;
       transition: background-color 0.2s ease;
       border: none;
@@ -97,7 +97,7 @@ export class AppLanguage extends LitElement {
     }
     
     .caret {
-      font-size: 12px;
+      font-size: var(--font-size-xs, 12px);
       color: var(--color-primary);
       transition: transform 0.2s ease;
     }
