@@ -7,6 +7,7 @@ import { Router, RouterController } from '../router/router.js';
 import { employeeStore } from '../stores/employee-store.js';
 import type { Employee, EmployeeUpdateData } from '../models/employee.js';
 import '../components/forms/employee-form.js';
+import '../components/popups/info-popup.js';
 
 @customElement('update-page')
 export class UpdatePage extends LitElement {
@@ -69,8 +70,7 @@ export class UpdatePage extends LitElement {
       if (data.email && data.email !== this.employee?.email) {
         const existingEmployee = employeeStore.findByEmail(data.email);
         if (existingEmployee && existingEmployee.id !== id) {
-          this.errorMessage = `Employee with email "${data.email}" already exists!`;
-          this.showErrorPopup(this.errorMessage);
+          this.showDuplicateEmployeePopup(data.email);
           return;
         }
       }
@@ -98,8 +98,25 @@ export class UpdatePage extends LitElement {
   }
 
   private showErrorPopup(message: string) {
-    // Simple browser alert for now - could be replaced with a custom modal
-    alert(message);
+    const infoPopup = this.shadowRoot?.querySelector('info-popup') as any;
+    if (infoPopup) {
+      infoPopup.show({
+        title: 'Error',
+        message: message,
+        type: 'error'
+      });
+    }
+  }
+
+  private showDuplicateEmployeePopup(email: string) {
+    const infoPopup = this.shadowRoot?.querySelector('info-popup') as any;
+    if (infoPopup) {
+      infoPopup.show({
+        title: i18n.t('duplicateEmployee'),
+        message: `${i18n.t('employeeExistsMessage')}: ${email}`,
+        type: 'warning'
+      });
+    }
   } private handleEmployeeCancel() {
     Router.getInstance().navigate('/');
   }
@@ -134,6 +151,8 @@ export class UpdatePage extends LitElement {
           @employee-cancel=${this.handleEmployeeCancel}
         ></employee-form>
       </div>
+      
+      <info-popup></info-popup>
     `;
   }
 }

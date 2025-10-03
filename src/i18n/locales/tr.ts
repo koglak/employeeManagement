@@ -26,6 +26,7 @@ export default {
     proceed: 'Devam Et',
     cancel: 'İptal',
     save: 'Kaydet',
+    ok: 'Tamam',
     saving: 'Kaydediliyor...',
     creating: 'Oluşturuluyor...',
     updating: 'Güncelleniyor...',
@@ -38,4 +39,6 @@ export default {
     confirmDelete: 'Emin Misiniz?',
     confirmDeleteMessage: 'Bu çalışanı silmek istediğinizden emin misiniz?',
     employeeDeleteMessage: '{name} adlı çalışan kaydını silmek istediğinizden emin misiniz?',
+    duplicateEmployee: 'Kayıt Zaten Mevcut',
+    employeeExistsMessage: 'Bu e-posta adresine sahip bir çalışan zaten bulunmaktadır',
 };

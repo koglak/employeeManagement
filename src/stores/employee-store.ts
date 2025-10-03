@@ -28,7 +28,7 @@ class EmployeeStore {
             id: this.generateId()
         };
 
-        this._employees.push(employee);
+        this._employees.unshift(employee);
         this.saveToStorage();
         this.emit();
         return employee;

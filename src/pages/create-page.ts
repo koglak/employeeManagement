@@ -6,6 +6,7 @@ import { employeeStore } from '../stores/employee-store.js';
 import { Router } from '../router/router.js';
 import type { EmployeeCreateData } from '../models/employee.js';
 import '../components/forms/employee-form.js';
+import '../components/popups/info-popup.js';
 
 @customElement('create-page')
 export class CreatePage extends LitElement {
@@ -31,16 +32,14 @@ export class CreatePage extends LitElement {
             // Check if employee with this email already exists
             const existingEmployee = employeeStore.findByEmail(data.email);
             if (existingEmployee) {
-                this.errorMessage = `Employee with email "${data.email}" already exists!`;
-                this.showErrorPopup(this.errorMessage);
+                this.showDuplicateEmployeePopup(data.email);
                 return;
             }
 
             // Simulate API call delay
             await new Promise(resolve => setTimeout(resolve, 500));
 
-            const newEmployee = employeeStore.add(data);
-            console.log('Employee created successfully:', newEmployee);
+            employeeStore.add(data);
 
             // Navigate to home page on success
             Router.getInstance().navigate('/');
@@ -54,8 +53,25 @@ export class CreatePage extends LitElement {
     }
 
     private showErrorPopup(message: string) {
-        // Simple browser alert for now - could be replaced with a custom modal
-        alert(message);
+        const infoPopup = this.shadowRoot?.querySelector('info-popup') as any;
+        if (infoPopup) {
+            infoPopup.show({
+                title: 'Error',
+                message: message,
+                type: 'error'
+            });
+        }
+    }
+
+    private showDuplicateEmployeePopup(email: string) {
+        const infoPopup = this.shadowRoot?.querySelector('info-popup') as any;
+        if (infoPopup) {
+            infoPopup.show({
+                title: i18n.t('duplicateEmployee'),
+                message: `${i18n.t('employeeExistsMessage')}: ${email}`,
+                type: 'warning'
+            });
+        }
     }
 
     private handleEmployeeCancel() {
@@ -75,6 +91,8 @@ export class CreatePage extends LitElement {
           @employee-cancel=${this.handleEmployeeCancel}
         ></employee-form>
       </div>
+      
+      <info-popup></info-popup>
     `;
     }
 }

@@ -26,6 +26,7 @@ export default {
     close: 'Close',
     proceed: 'Proceed',
     save: 'Save',
+    ok: 'OK',
     saving: 'Saving...',
     creating: 'Creating...',
     updating: 'Updating...',
@@ -38,4 +39,6 @@ export default {
     confirmDelete: 'Are you sure?',
     confirmDeleteMessage: 'Are you sure you want to delete this employee?',
     employeeDeleteMessage: 'Selected employee record of {name} will be deleted?',
+    duplicateEmployee: 'Duplicate Employee',
+    employeeExistsMessage: 'An employee with this email already exists',
 };

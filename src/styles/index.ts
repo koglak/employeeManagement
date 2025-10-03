@@ -8,3 +8,4 @@ export { formStyles } from './form.css';
 export { languageStyles } from './language.css';
 export { homeStyles } from './home.css';
 export { popupStyles } from './popup.css';
+export { infoPopupStyles } from './info-popup.css';
