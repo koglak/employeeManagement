@@ -3,6 +3,28 @@ import { css } from 'lit';
 // Form styles for pages
 export const formStyles = css`
 *, *::before, *::after { box-sizing: border-box; }
+:host {
+      display: block;
+      height: 100%;
+    }
+    
+  .form-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-grid {
+    flex: 1;
+    overflow-y: auto;
+  }
+    
+  .form-actions {
+    flex-shrink: 0;
+    padding-top: var(--space-4, 16px);
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-4, 16px);
+  }
 
 .container {
   width: 100%;

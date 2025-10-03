@@ -31,30 +31,7 @@ interface FormErrors {
 @customElement('employee-form')
 export class EmployeeForm extends LitElement {
   private i18nCtl = new I18nController(this);
-  static styles = [formStyles, css`
-    :host {
-      display: block;
-      height: 100%;
-    }
-    
-    .form-card {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .form-grid {
-      flex: 1;
-      overflow-y: auto;
-    }
-    
-    .form-actions {
-      flex-shrink: 0;
-      padding-top: var(--space-4, 16px);
-      border-top: 1px solid var(--color-border);
-      margin-top: var(--space-4, 16px);
-    }
-  `];
+  static styles = [formStyles];
 
   @property({ type: Object }) employee?: Employee;
   @property({ type: Boolean }) loading = false;
@@ -87,15 +64,45 @@ export class EmployeeForm extends LitElement {
     this.updateFormData();
   }
 
+  firstUpdated() {
+    this.updateSelectValues();
+  }
+
   updated(changedProperties: Map<string | number | symbol, unknown>) {
     if (changedProperties.has('employee')) {
       this.updateFormData();
+      this.updateSelectValues();
     }
+  }
+
+  private updateSelectValues() {
+    // Wait for the next frame to ensure DOM is updated
+    requestAnimationFrame(() => {
+      const departmentSelect = this.shadowRoot?.querySelector('#department') as HTMLSelectElement;
+      const positionSelect = this.shadowRoot?.querySelector('#position') as HTMLSelectElement;
+
+      if (departmentSelect && this.formData.department) {
+        departmentSelect.value = this.formData.department;
+      }
+
+      if (positionSelect && this.formData.position) {
+        positionSelect.value = this.formData.position;
+      }
+    });
   }
 
   private updateFormData() {
     if (this.employee) {
-      this.formData = { ...this.employee };
+      this.formData = {
+        firstName: this.employee.firstName || '',
+        lastName: this.employee.lastName || '',
+        email: this.employee.email || '',
+        phone: this.employee.phone || '',
+        birthDate: this.employee.birthDate || '',
+        employmentDate: this.employee.employmentDate || '',
+        department: this.employee.department || '',
+        position: this.employee.position || ''
+      };
     } else {
       this.formData = {
         firstName: '',
@@ -317,7 +324,6 @@ export class EmployeeForm extends LitElement {
             <select
               id="department"
               class="form-select ${this.errors.department && this.touched.department ? 'error' : ''}"
-              .value=${this.formData.department}
               @change=${(e: Event) => this.handleInputChange('department', (e.target as HTMLSelectElement).value)}
               ?disabled=${this.loading}
               required
@@ -339,7 +345,6 @@ export class EmployeeForm extends LitElement {
             <select
               id="position"
               class="form-select ${this.errors.position && this.touched.position ? 'error' : ''}"
-              .value=${this.formData.position}
               @change=${(e: Event) => this.handleInputChange('position', (e.target as HTMLSelectElement).value)}
               ?disabled=${this.loading}
               required

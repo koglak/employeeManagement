@@ -125,9 +125,6 @@ export class UpdatePage extends LitElement {
       <div class="container">
         <div class="header">
           <h1 class="title">${i18n.t('update')}</h1>
-          <a href="/" class="back-btn">
-            ← Back to ${i18n.t('home')}
-          </a>
         </div>
 
         <employee-form 
