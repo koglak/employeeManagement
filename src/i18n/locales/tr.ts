@@ -41,4 +41,6 @@ export default {
     employeeDeleteMessage: '{name} adlı çalışan kaydını silmek istediğinizden emin misiniz?',
     duplicateEmployee: 'Kayıt Zaten Mevcut',
     employeeExistsMessage: 'Bu e-posta adresine sahip bir çalışan zaten bulunmaktadır',
+    invalidAge: 'Geçersiz Yaş',
+    employeeTooYoungMessage: 'Çalışan en az 18 yaşında olmalıdır',
 };

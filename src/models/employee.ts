@@ -30,6 +30,22 @@ export function isValidPhone(phone: string): boolean {
     return /^(\+90|0)?\s*\d{3}\s*\d{3}\s*\d{2}\s*\d{2}$/.test(phone.replace(/[\s-]/g, ''));
 }
 
+export function isAtLeast18YearsOld(birthDate: string): boolean {
+    if (!birthDate || !isValidDate(birthDate)) return false;
+    
+    const birth = new Date(birthDate);
+    const today = new Date();
+    const age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    
+    // If birthday hasn't occurred this year yet, subtract 1 from age
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+        return age - 1 >= 18;
+    }
+    
+    return age >= 18;
+}
+
 export function isValidEmployee(data: any): data is EmployeeCreateData {
     return (
         typeof data.firstName === 'string' && data.firstName.trim().length > 0 &&
@@ -38,7 +54,7 @@ export function isValidEmployee(data: any): data is EmployeeCreateData {
         typeof data.department === 'string' && data.department.trim().length > 0 &&
         typeof data.position === 'string' && data.position.trim().length > 0 &&
         typeof data.employmentDate === 'string' && isValidDate(data.employmentDate) &&
-        typeof data.birthDate === 'string' && isValidDate(data.birthDate) &&
+        typeof data.birthDate === 'string' && isValidDate(data.birthDate) && isAtLeast18YearsOld(data.birthDate) &&
         typeof data.phone === 'string' && isValidPhone(data.phone)
     );
 }

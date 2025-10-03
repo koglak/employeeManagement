@@ -5,6 +5,7 @@ import { i18n, I18nController } from '../i18n/i18n.js';
 import { employeeStore } from '../stores/employee-store.js';
 import { Router } from '../router/router.js';
 import type { EmployeeCreateData } from '../models/employee.js';
+import { isAtLeast18YearsOld } from '../models/employee.js';
 import '../components/forms/employee-form.js';
 import '../components/popups/info-popup.js';
 
@@ -33,6 +34,12 @@ export class CreatePage extends LitElement {
             const existingEmployee = employeeStore.findByEmail(data.email);
             if (existingEmployee) {
                 this.showDuplicateEmployeePopup(data.email);
+                return;
+            }
+
+            // Check if employee is at least 18 years old
+            if (!isAtLeast18YearsOld(data.birthDate)) {
+                this.showAgeValidationPopup();
                 return;
             }
 
@@ -69,6 +76,17 @@ export class CreatePage extends LitElement {
             infoPopup.show({
                 title: i18n.t('duplicateEmployee'),
                 message: `${i18n.t('employeeExistsMessage')}: ${email}`,
+                type: 'warning'
+            });
+        }
+    }
+
+    private showAgeValidationPopup() {
+        const infoPopup = this.shadowRoot?.querySelector('info-popup') as any;
+        if (infoPopup) {
+            infoPopup.show({
+                title: i18n.t('invalidAge'),
+                message: i18n.t('employeeTooYoungMessage'),
                 type: 'warning'
             });
         }

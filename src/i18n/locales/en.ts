@@ -41,4 +41,6 @@ export default {
     employeeDeleteMessage: 'Selected employee record of {name} will be deleted?',
     duplicateEmployee: 'Duplicate Employee',
     employeeExistsMessage: 'An employee with this email already exists',
+    invalidAge: 'Invalid Age',
+    employeeTooYoungMessage: 'Employee must be at least 18 years old',
 };
