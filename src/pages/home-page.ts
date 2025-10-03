@@ -147,7 +147,7 @@ export class HomePage extends LitElement {
           .open=${true}
           .title=${i18n.t('confirmDelete')}
           .message=${i18n.t('employeeDeleteMessage').replace('{name}', `${this.employeeToDelete.firstName} ${this.employeeToDelete.lastName}`)}
-          .confirmText=${i18n.t('delete')}
+          .confirmText=${i18n.t('proceed')}
           .cancelText=${i18n.t('cancel')}
           @confirm=${this.confirmDelete}
           @cancel=${this.hideDeleteConfirm}
