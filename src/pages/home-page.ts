@@ -15,8 +15,7 @@ import '../components/employee/employee-table';
 import '../components/employee/view-selector';
 import '../components/pagination/app-pagination';
 import '../components/popups/confirm-popup';
-
-type ViewMode = 'table' | 'grid';
+import type { ViewMode } from '../constants/interfaces';
 
 @customElement('home-page')
 export class HomePage extends LitElement {
