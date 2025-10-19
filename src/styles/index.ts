@@ -9,3 +9,4 @@ export { languageStyles } from './language.css';
 export { homeStyles } from './home.css';
 export { popupStyles } from './popup.css';
 export { infoPopupStyles } from './info-popup.css';
+export { viewSelectorStyles } from './view-selector.css';

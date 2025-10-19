@@ -5,7 +5,7 @@ import { i18n, I18nController } from '../../i18n/i18n';
 
 import '../icons/icon-menu';
 import '../icons/icon-grid';
-import { viewSelectorStyle } from '../../styles/view-selector.css';
+import { viewSelectorStyles } from '../../styles/view-selector.css';
 import type { ViewMode } from '../../constants/interfaces';
 
 @customElement('view-selector')
@@ -14,7 +14,7 @@ export class ViewSelector extends LitElement {
 
   @property() currentView: ViewMode = 'table';
 
-  static styles = viewSelectorStyle;
+  static styles = viewSelectorStyles;
 
   private change(view: ViewMode) {
     if (view === this.currentView) return;

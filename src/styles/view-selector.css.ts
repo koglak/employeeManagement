@@ -1,6 +1,6 @@
 import { css } from 'lit';
 
-export const viewSelectorStyle = css`
+export const viewSelectorStyles = css`
     :host { display:inline-flex; }
 
     /* sadece iki ikon, arada boşluk */
