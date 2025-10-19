@@ -1,5 +1,4 @@
 // src/stores/employee-store.ts
-import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import type { Employee, EmployeeCreateData, EmployeeUpdateData } from '../models/employee';
 import { DEPARTMENTS, POSITIONS } from '../constants/constants';
 
@@ -198,21 +197,3 @@ class EmployeeStore {
 // Singleton instance
 export const employeeStore = new EmployeeStore();
 
-// Reactive controller for Lit components
-export class EmployeeController implements ReactiveController {
-    private host: ReactiveControllerHost;
-    private unsub?: () => void;
-
-    constructor(host: ReactiveControllerHost) {
-        this.host = host;
-        host.addController(this);
-    }
-
-    hostConnected() {
-        this.unsub = employeeStore.subscribe(() => this.host.requestUpdate());
-    }
-
-    hostDisconnected() {
-        this.unsub?.();
-    }
-}
